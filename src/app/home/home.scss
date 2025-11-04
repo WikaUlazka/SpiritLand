@@ -1,0 +1,73 @@
+.home {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  text-align: center;
+
+  h1 {
+    font-size: 2rem;
+    color: #4a47a3;
+  }
+
+  p {
+    color: #555;
+    margin-bottom: 1rem;
+  }
+
+  .ghost-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  .ghost-card {
+    background: #fff;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+    h3 {
+      color: #4a47a3;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #666;
+      font-size: 0.9rem;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+
+    button {
+      padding: 0.8rem 1.2rem;
+      border: none;
+      border-radius: 0.5rem;
+      background-color: #4a47a3;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+
+      &:hover {
+        background-color: #363480;
+      }
+    }
+  }
+
+  .welcome {
+    text-align: center;
+
+    h1 {
+      color: #4a47a3;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<h2>Dodaj nową grę</h2>
+
+<form (ngSubmit)="addGame()" class="form">
+  <label>Data gry:</label>
+  <input type="date" [(ngModel)]="newGame.date" name="date" required />
+
+  <label>Wynik:</label>
+  <select [(ngModel)]="newGame.result" name="result">
+    <option value="win">Wygrana</option>
+    <option value="loss">Przegrana</option>
+  </select>
+
+  <label>Gracze:</label>
+  <div>
+    <input type="text" [(ngModel)]="newPlayer" placeholder="nazwa gracza" name="player" />
+    <button type="button" (click)="addPlayer()">Dodaj</button>
+  </div>
+
+  <ul>
+    <li *ngFor="let p of newGame.players">{{ p.username }}</li>
+  </ul>
+
+  <button type="submit">Zapisz grę</button>
+</form>

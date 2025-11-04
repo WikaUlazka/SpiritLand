@@ -1,0 +1,31 @@
+<div class="home">
+  <ng-container *ngIf="!user; else loggedIn">
+    <h1>👻 Spiritland</h1>
+    <p>Witaj w świecie duchów i planszowych pojedynków!</p>
+
+    <div class="ghost-list">
+      <div class="ghost-card" *ngFor="let ghost of ghosts">
+        <h3>{{ ghost.name }}</h3>
+        <p>{{ ghost.desc }}</p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button routerLink="/login">Zaloguj się</button>
+      <button routerLink="/register">Zarejestruj się</button>
+      <button routerLink="/ranking">Ranking</button>
+    </div>
+  </ng-container>
+
+  <ng-template #loggedIn>
+    <div class="welcome">
+      <h1>👋 Witaj ponownie, {{ user.username }}!</h1>
+      <p>Gotowy na kolejną rozgrywkę?</p>
+
+      <div class="actions">
+        <button routerLink="/games">Przejdź do gier</button>
+        <button (click)="logout()">Wyloguj się</button>
+      </div>
+    </div>
+  </ng-template>
+</div>

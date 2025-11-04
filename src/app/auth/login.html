@@ -1,0 +1,36 @@
+<div class="login-container">
+  <h2>Zaloguj się</h2>
+
+  <form (ngSubmit)="onLogin()" class="login-form">
+    <div>
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        [(ngModel)]="email"
+        name="email"
+        required
+        placeholder="Wpisz swój email"
+      />
+    </div>
+
+    <div>
+      <label for="password">Hasło</label>
+      <input
+        id="password"
+        type="password"
+        [(ngModel)]="password"
+        name="password"
+        required
+        placeholder="Wpisz swoje hasło"
+      />
+    </div>
+
+    <button type="submit">Zaloguj</button>
+  </form>
+
+  <p class="register-link">
+    Nie masz konta?
+    <a routerLink="/register">Zarejestruj się</a>
+  </p>
+</div>
