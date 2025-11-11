@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { MainLayout } from './layout/main-layout';
 import { Home } from './home/home';
+import { Spirits } from './spirits/spirits';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,10 @@ export const routes: Routes = [
       {
         path: 'login',
         loadComponent: () => import('./auth/login').then((m) => m.Login),
+      },
+      {
+        path: 'spirits',
+        component: Spirits,
       },
     ],
   },

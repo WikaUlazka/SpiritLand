@@ -1,0 +1,66 @@
+.spirits-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h2 {
+  color: #4a47a3;
+  margin-bottom: 1.5rem;
+}
+
+.spirit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.spirit-card {
+  background: #f9f9ff;
+  border: 1px solid #e0e0ff;
+  border-radius: 0.8rem;
+  padding: 1rem;
+  text-align: left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.spirit-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.spirit-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #363480;
+  margin-bottom: 0.3rem;
+}
+
+.spirit-complexity {
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.spirit-description {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.4;
+}
+
+.loading,
+.error {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.error {
+  color: red;
+}

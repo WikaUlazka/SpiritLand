@@ -1,0 +1,16 @@
+<div class="login-container">
+  <h2>Lista Duchów</h2>
+
+  <div *ngIf="loading">⏳ Wczytywanie...</div>
+  <div *ngIf="error">{{ error }}</div>
+
+  <div *ngIf="!loading && spirits.length === 0">Brak danych w bazie.</div>
+
+  <ul *ngIf="!loading && spirits.length > 0" class="spirit-list">
+    <li *ngFor="let s of spirits" class="spirit-item">
+      <h3>{{ s.name }}</h3>
+      <p><strong>Złożoność:</strong> {{ s.complexity || 'brak danych' }}</p>
+      <p>{{ s.description || 'brak opisu' }}</p>
+    </li>
+  </ul>
+</div>
