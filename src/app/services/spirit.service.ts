@@ -7,11 +7,12 @@ export interface Spirit {
   name: string;
   complexity: string;
   description: string;
+  imageUrl?: string;
 }
 
 @Injectable({ providedIn: 'root' })
 export class SpiritService {
-  private apiUrl = 'http://localhost:3000/api/spirits';
+  private apiUrl = 'http://localhost:5288/api/spirits';
 
   constructor(private http: HttpClient) {}
 

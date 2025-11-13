@@ -1,16 +1,26 @@
-<div class="login-container">
+<div class="spirits-container">
   <h2>Lista Duchów</h2>
 
-  <div *ngIf="loading">⏳ Wczytywanie...</div>
-  <div *ngIf="error">{{ error }}</div>
+  <div *ngIf="loading" class="loading">⏳ Wczytywanie...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
 
-  <div *ngIf="!loading && spirits.length === 0">Brak danych w bazie.</div>
+  <div *ngIf="!loading && spirits.length === 0" class="empty">Brak danych w bazie.</div>
 
   <ul *ngIf="!loading && spirits.length > 0" class="spirit-list">
-    <li *ngFor="let s of spirits" class="spirit-item">
-      <h3>{{ s.name }}</h3>
-      <p><strong>Złożoność:</strong> {{ s.complexity || 'brak danych' }}</p>
-      <p>{{ s.description || 'brak opisu' }}</p>
+    <li *ngFor="let s of spirits" class="spirit-card">
+      <div class="spirit-header">
+        <img *ngIf="s.imageUrl" [src]="s.imageUrl" [alt]="s.name" class="spirit-image" />
+        <div class="spirit-info">
+          <h3 class="spirit-name">{{ s.name }}</h3>
+          <p class="spirit-complexity">
+            <strong>Złożoność:</strong> {{ s.complexity || 'brak danych' }}
+          </p>
+        </div>
+      </div>
+
+      <p class="spirit-description">
+        {{ s.description || 'brak opisu' }}
+      </p>
     </li>
   </ul>
 </div>
