@@ -1,14 +1,227 @@
-.form {
+.game-form-wrapper {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 400px;
+  justify-content: center;
+  padding: 2rem;
 }
 
-input,
-select,
-button {
-  padding: 6px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.game-form-card {
+  width: 100%;
+  max-width: 650px;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.35s ease;
+}
+
+h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  color: #333;
+}
+
+h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #444;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 4px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #444;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.7rem;
+  border: 1px solid #cfcfee;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: white;
+  transition: 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #6a67ce;
+  box-shadow: 0 0 6px rgba(106, 103, 206, 0.3);
+}
+
+.checkbox-group {
+  margin-bottom: 1rem;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #444;
+}
+
+.player-card {
+  background: #f8f8ff;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  border-radius: 14px;
+  border: 1px solid #dcdcff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  animation: fadeInUp 0.25s ease;
+}
+
+.player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.remove-btn {
+  border: none;
+  background: #ff4d4d;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: #d93636;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-row label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #444;
+}
+
+.form-row select,
+.form-row textarea {
+  padding: 0.7rem;
+  border: 1px solid #c8c8e8;
+  border-radius: 10px;
+  background: white;
+  font-size: 0.95rem;
+  transition: 0.2s ease;
+}
+
+.form-row select:focus,
+.form-row textarea:focus {
+  outline: none;
+  border-color: #6a67ce;
+  box-shadow: 0 0 6px rgba(106, 103, 206, 0.25);
+}
+
+.add-player-btn {
+  width: 100%;
+  padding: 1rem;
+  background: #6a67ce;
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: 0.2s ease;
+}
+
+.add-player-btn:hover {
+  background: #5956c7;
+}
+
+.button-row {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.save-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 1rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  border: none;
+  font-weight: 600;
+}
+
+.save-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #449d48;
+}
+
+.cancel-btn {
+  background: #dddddd;
+}
+
+.cancel-btn:hover {
+  background: #c8c8c8;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .game-form-card {
+    padding: 1rem;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
 }

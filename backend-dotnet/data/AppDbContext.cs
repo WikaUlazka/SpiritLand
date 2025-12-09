@@ -6,61 +6,75 @@ namespace SpiritlandBackend.Data
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
-            : base(options)
-        {
-        }
+            : base(options) {}
 
-        public DbSet<Spirit> Spirits { get; set; }
-        public DbSet<Adversary> Adversaries { get; set; }
+        public DbSet<User> Users => Set<User>();
+        public DbSet<Spirit> Spirits => Set<Spirit>();
+        public DbSet<Aspect> Aspects => Set<Aspect>();
+        public DbSet<Adversary> Adversaries => Set<Adversary>();
+        public DbSet<AdversaryLevel> AdversaryLevels => Set<AdversaryLevel>();
         public DbSet<Scenario> Scenarios { get; set; }
-        public DbSet<User> Users { get; set; }
 
+        public DbSet<Game> Games => Set<Game>();
+        public DbSet<GamePlayer> GamePlayers => Set<GamePlayer>();
+        public DbSet<GameInvite> GameInvites => Set<GameInvite>();
+        public DbSet<Notification> Notifications => Set<Notification>();
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder model)
         {
-            // === Mapowanie tabeli Spirits ===
-            modelBuilder.Entity<Spirit>(entity =>
-            {
-                entity.ToTable("Spirits");
-                entity.Property(e => e.Id).HasColumnName("id");
-                entity.Property(e => e.Name).HasColumnName("name");
-                entity.Property(e => e.Description).HasColumnName("description");
-                entity.Property(e => e.Complexity).HasColumnName("complexity");
-                entity.Property(e => e.ImageUrl).HasColumnName("imageurl");
-            });
+            base.OnModelCreating(model);
 
-            // === Mapowanie tabeli Adversaries ===
-            modelBuilder.Entity<Adversary>(entity =>
-            {
-                entity.ToTable("Adversaries");
-                entity.Property(e => e.Id).HasColumnName("id");
-                entity.Property(e => e.Name).HasColumnName("name");
-                entity.Property(e => e.Difficulty).HasColumnName("difficulty");
-                entity.Property(e => e.Description).HasColumnName("description");
-                entity.Property(e => e.ImageUrl).HasColumnName("imageurl");
-            });
+            model.Entity<User>()
+                .HasIndex(x => x.Email)
+                .IsUnique();
 
-            // === Mapowanie tabeli Scenarios ===
-            modelBuilder.Entity<Scenario>(entity =>
-            {
-                entity.ToTable("Scenarios");
-                entity.Property(e => e.Id).HasColumnName("id");
-                entity.Property(e => e.Name).HasColumnName("name");
-                entity.Property(e => e.Difficulty).HasColumnName("difficulty");
-                entity.Property(e => e.Description).HasColumnName("description");
-                entity.Property(e => e.ImageUrl).HasColumnName("imageurl");
-            });
-            // === Mapowanie tabeli Users ===
-            modelBuilder.Entity<User>(entity =>
-{
-    entity.ToTable("Users");
-    entity.Property(e => e.Id).HasColumnName("id");
-    entity.Property(e => e.Username).HasColumnName("username");
-    entity.Property(e => e.Email).HasColumnName("email");
-    entity.Property(e => e.Password).HasColumnName("password");
-    entity.Property(e => e.FavoriteSpirit).HasColumnName("favoritespirit");
-});
+            model.Entity<User>()
+                .HasMany(x => x.PlayedGames)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId);
 
+            model.Entity<User>()
+                .HasMany(x => x.CreatedGames)
+                .WithOne(x => x.CreatorUser)
+                .HasForeignKey(x => x.CreatorUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            model.Entity<Spirit>()
+                .HasMany(x => x.Aspects)
+                .WithOne(x => x.Spirit)
+                .HasForeignKey(x => x.SpiritId);
+
+            model.Entity<Aspect>()
+                .HasOne(x => x.Spirit)
+                .WithMany(x => x.Aspects)
+                .HasForeignKey(x => x.SpiritId);
+
+            model.Entity<GamePlayer>()
+                .HasOne(x => x.Game)
+                .WithMany(x => x.Players)
+                .HasForeignKey(x => x.GameId);
+
+            model.Entity<GamePlayer>()
+                .HasOne(x => x.Spirit)
+                .WithMany(x => x.GamePlayers)
+                .HasForeignKey(x => x.SpiritId);
+
+            model.Entity<GameInvite>()
+                .HasOne(x => x.SenderUser)
+                .WithMany(x => x.SentInvites)
+                .HasForeignKey(x => x.SenderUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            model.Entity<GameInvite>()
+                .HasOne(x => x.ReceiverUser)
+                .WithMany(x => x.ReceivedInvites)
+                .HasForeignKey(x => x.ReceiverUserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            model.Entity<Notification>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.Notifications)
+                .HasForeignKey(x => x.UserId);
         }
     }
 }

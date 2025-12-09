@@ -1,0 +1,33 @@
+<div class="edit-container" *ngIf="!loading && user">
+  <div class="edit-card">
+    <h2>Edycja profilu</h2>
+
+    <div class="form-group">
+      <label>Nazwa użytkownika</label>
+      <input [(ngModel)]="user.username" />
+    </div>
+
+    <div class="form-group">
+      <label>Ulubiony duch</label>
+      <select [(ngModel)]="user.favoriteSpiritId" (ngModelChange)="onSpiritChange()">
+        <option [ngValue]="null">— brak —</option>
+        <option *ngFor="let s of spirits" [ngValue]="s.id">{{ s.name }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Ulubiony aspekt</label>
+      <select [(ngModel)]="user.favoriteAspectId" [disabled]="aspects.length === 0">
+        <option [ngValue]="null">— brak —</option>
+        <option *ngFor="let a of aspects" [ngValue]="a.id">{{ a.name }}</option>
+      </select>
+
+      <p class="no-aspects" *ngIf="user.favoriteSpiritId && aspects.length === 0">
+        Wybrany duch nie ma dostępnych aspektów.
+      </p>
+    </div>
+
+    <button class="save-btn" (click)="save()">Zapisz</button>
+    <button class="cancel-btn" routerLink="/users">Anuluj</button>
+  </div>
+</div>

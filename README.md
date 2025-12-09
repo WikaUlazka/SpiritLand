@@ -1,59 +1,147 @@
-# Spiritland
+Spirit Island Score Tracker
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.7.
+Aplikacja webowa do zapisywania, przeglądania i współdzielenia wyników z gry planszowej Spirit Island.
+Projekt składa się z frontendowej aplikacji Angular, backendu ASP.NET Core oraz bazy danych PostgreSQL.
+Aplikacja umożliwia prowadzenie profilu gracza, tworzenie i edycję partii, zarządzanie duchami, aspektami, przeciwnikami i scenariuszami.
 
-## Development server
+Spis treści
 
-To start a local development server, run:
+Opis projektu
 
-```bash
-ng serve
-```
+Funkcje
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Stos technologiczny
 
-## Code scaffolding
+Architektura
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Wymagania systemowe
 
-```bash
-ng generate component component-name
-```
+Instalacja i uruchomienie
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Struktura projektu
 
-```bash
-ng generate --help
-```
+Modele danych
 
-## Building
+Opis projektu:
 
-To build the project run:
+Spirit Island Score Tracker to aplikacja wspierająca graczy Spirit Island w rejestrowaniu i analizowaniu przebiegu ich rozgrywek.
+Projekt umożliwia:
 
-```bash
-ng build
-```
+zapisywanie szczegółów każdej partii,
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+przegląd historii gier na poziomie użytkownika,
 
-## Running unit tests
+współdzielenie partii i zapraszanie innych graczy,
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+zarządzanie listami duchów, aspektów, przeciwników i scenariuszy.
 
-```bash
-ng test
-```
+Aplikacja jest przygotowana do działania jako narzędzie indywidualne oraz społecznościowe, z możliwością dalszej rozbudowy.
 
-## Running end-to-end tests
+Funkcje
 
-For end-to-end (e2e) testing, run:
+1. Konta użytkowników
 
-```bash
-ng e2e
-```
+Rejestracja i logowanie (JWT / Identity).
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Profil użytkownika: nazwa, ulubiony duch z aspektem, data rejestracji.
 
-## Additional Resources
+Edycja profilu i zmiana hasła.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+2. Interakcje użytkowników
+
+Wyszukiwanie użytkowników po nazwie.
+
+Podgląd profilu i ostatnich rozgrywek.
+
+3. Duchy i aspekty
+
+Lista duchów z opisami i poziomem złożoności.
+
+Lista aspektów przypisanych do każdego ducha.
+
+Wybór ulubionego ducha w profilu.
+
+4. Przeciwnicy
+
+Lista przeciwników, ich poziomy trudności i opisy.
+
+5. Scenariusze i tryby gry
+
+Lista scenariuszy (np. Blitz, The Great River).
+
+6. Tworzenie i współdzielenie partii
+
+Tworzenie nowej partii i zapraszanie graczy.
+
+Wspólna edycja: każdy gracz edytuje swoje dane (duch, wynik, notatki).
+
+Zaproszenia do udziału w partii.
+
+7. Szczegóły rozgrywki
+
+Każda partia zawiera:
+
+datę,
+
+listę graczy,
+
+ducha i aspekt każdego gracza,
+
+wybranego przeciwnika + poziom,
+
+scenariusz (jeśli użyty),
+
+stan wyspy (zarażona / normalna),
+
+wynik (wygrana / przegrana),
+
+powód zakończenia (Fear Victory, Blight Loss, itp.),
+
+liczbę tur, komentarze, opis układu planszy.
+
+8. Wyszukiwanie i filtrowanie
+
+Filtracja gier po duchu, scenariuszu, poziomie trudności, przeciwniku, uczestniku, wyniku.
+
+Stos technologiczny
+Frontend
+
+Angular 17
+
+TypeScript
+
+SCSS
+
+Angular Router
+
+JWT Auth
+
+Reactive Forms / Template Forms
+
+Backend
+
+ASP.NET Core 8 (Web API)
+
+Entity Framework Core
+
+JWT Authentication
+
+Clean Controller structure
+
+Baza danych
+
+PostgreSQL
+
+pgAdmin
+
+9. Screeny aplikacji
+   Diagram bazy danych
+   ![Database diagram](screenshots/Data_base.png)
+   Pogląd duchów
+   ![Duchy](screenshots/Spirits.png)
+   Szczegóły ducha
+   ![Duch](screenshots/S_D.png)
+   Pogląd scenariuszy
+   ![Scenariusze](screenshots/scenario.png)
+   Pogląd przeciwników
+   ![Przeciwnicy](screenshots/adversaries.png)

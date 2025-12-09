@@ -1,12 +1,29 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  standalone: true,
   templateUrl: './app.html',
-  styleUrl: './app.scss',
+  styleUrls: ['./app.scss'],
+  imports: [CommonModule, RouterModule],
 })
 export class App {
-  protected readonly title = signal('spiritland');
+  user: any = null;
+
+  constructor(public auth: AuthService) {
+    this.loadUser();
+  }
+
+  loadUser() {
+    this.user = this.auth.getUser();
+  }
+
+  logout() {
+    this.auth.logout();
+    this.user = null;
+    window.location.href = '/';
+  }
 }

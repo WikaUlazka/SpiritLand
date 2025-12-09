@@ -1,0 +1,33 @@
+<div class="scenario-container">
+  <h2 class="title">Scenariusze</h2>
+
+  <input type="text" placeholder="Wyszukaj scenariusz..." class="search-box" [(ngModel)]="search" />
+
+  <div *ngIf="loading" class="info">Ładowanie...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && filteredScenarios.length === 0" class="info">
+    Brak scenariuszy pasujących do wyszukiwania.
+  </div>
+
+  <div class="scenario-grid">
+    <div
+      *ngFor="let s of filteredScenarios"
+      class="scenario-card"
+      [routerLink]="['/scenarios', s.id]"
+    >
+      <div class="scenario-image-wrapper">
+        <img
+          *ngIf="s.imageUrl"
+          class="scenario-img"
+          [src]="'http://localhost:5288' + s.imageUrl"
+          alt="{{ s.name }}"
+        />
+      </div>
+
+      <div class="scenario-content">
+        <h3>{{ s.name }}</h3>
+      </div>
+    </div>
+  </div>
+</div>

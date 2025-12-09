@@ -1,0 +1,37 @@
+<div class="spirit-details-wrapper">
+  <div *ngIf="loading" class="loading">Ładowanie...</div>
+
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && spirit" class="spirit-details">
+    <h1 class="spirit-name">{{ spirit.name }}</h1>
+
+    <div class="spirit-info">
+      <img
+        *ngIf="spirit.imageUrl"
+        class="spirit-main-img"
+        [src]="'http://localhost:5288' + spirit.imageUrl"
+        alt="{{ spirit.name }}"
+      />
+
+      <div class="spirit-description">
+        <p><strong>Złożoność:</strong> {{ spirit.complexity }}</p>
+        <p>{{ spirit.description }}</p>
+      </div>
+    </div>
+
+    <h2 class="aspects-title">Aspekty</h2>
+
+    <div class="aspects-container">
+      <div *ngFor="let a of aspects" class="aspect-card">
+        <img
+          *ngIf="a.imageUrl"
+          class="aspect-img"
+          [src]="'http://localhost:5288' + a.imageUrl"
+          alt="{{ a.name }}"
+        />
+        <h3 class="aspect-title">{{ a.name }}</h3>
+      </div>
+    </div>
+  </div>
+</div>

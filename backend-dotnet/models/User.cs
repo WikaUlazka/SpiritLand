@@ -1,4 +1,3 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SpiritlandBackend.Models
@@ -7,12 +6,24 @@ namespace SpiritlandBackend.Models
     {
         public int Id { get; set; }
 
-        public required string Username { get; set; }
+        public string Username { get; set; } = string.Empty;
 
-        public required string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
-        public required string Password { get; set; }
+        public string PasswordHash { get; set; } = string.Empty;
 
-        public string? FavoriteSpirit { get; set; }  
+        public int? FavoriteSpiritId { get; set; }
+        public Spirit? FavoriteSpirit { get; set; }
+
+        public int? FavoriteAspectId { get; set; }
+        public Aspect? FavoriteAspect { get; set; }
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        public List<Game> CreatedGames { get; set; } = new();
+        public List<GamePlayer> PlayedGames { get; set; } = new();
+        public List<GameInvite> SentInvites { get; set; } = new();
+        public List<GameInvite> ReceivedInvites { get; set; } = new();
+        public List<Notification> Notifications { get; set; } = new();
     }
 }

@@ -1,40 +1,39 @@
 import { Component } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-
-interface Player {
-  username: string;
-}
-
-interface Game {
-  date: string;
-  result: string;
-  players: Player[];
-}
+import { Router, RouterLink } from '@angular/router';
+import { GamesService } from '../../services/games.service';
 
 @Component({
   selector: 'app-game-list',
   standalone: true,
-  imports: [CommonModule, FormsModule, DatePipe],
+  imports: [CommonModule, DatePipe, RouterLink],
   templateUrl: './game-list.html',
-  styleUrl: './game-list.scss',
+  styleUrls: ['./game-list.scss'],
 })
 export class GameList {
-  games: Game[] = [];
-  newGame: Game = { date: '', result: '', players: [] };
-  newPlayer: string = '';
+  games: any[] = [];
 
-  addPlayer() {
-    if (this.newPlayer.trim()) {
-      this.newGame.players.push({ username: this.newPlayer });
-      this.newPlayer = '';
-    }
+  constructor(private gamesService: GamesService, private router: Router) {}
+
+  ngOnInit() {
+    this.gamesService.getUserGames().subscribe((res: any[]) => {
+      this.games = res;
+    });
   }
 
-  addGame() {
-    if (this.newGame.date && this.newGame.players.length > 0) {
-      this.games.push({ ...this.newGame });
-      this.newGame = { date: '', result: '', players: [] };
+  openGame(id: number) {
+    this.router.navigate(['/games', id]);
+  }
+
+  editGame(id: number) {
+    this.router.navigate(['/games/edit', id]);
+  }
+
+  deleteGame(id: number) {
+    if (confirm('Usunąć tę grę?')) {
+      this.gamesService.deleteGame(id).subscribe(() => {
+        this.games = this.games.filter((g) => g.id !== id);
+      });
     }
   }
 }

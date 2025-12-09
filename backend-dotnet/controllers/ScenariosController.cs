@@ -17,25 +17,50 @@ namespace SpiritlandBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Scenario>>> GetScenarios()
+        public async Task<IActionResult> GetAll()
         {
-            return await _context.Scenarios.ToListAsync();
+            return Ok(await _context.Scenarios.ToListAsync());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Scenario>> GetScenario(int id)
+        public async Task<IActionResult> Get(int id)
         {
             var scenario = await _context.Scenarios.FindAsync(id);
             if (scenario == null) return NotFound();
-            return scenario;
+
+            return Ok(scenario);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Scenario>> CreateScenario(Scenario scenario)
+        public async Task<IActionResult> Create(Scenario scenario)
         {
             _context.Scenarios.Add(scenario);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetScenario), new { id = scenario.Id }, scenario);
+            return Ok(scenario);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, Scenario update)
+        {
+            var scenario = await _context.Scenarios.FindAsync(id);
+            if (scenario == null) return NotFound();
+
+            scenario.Name = update.Name;
+            scenario.Description = update.Description;
+
+            await _context.SaveChangesAsync();
+            return Ok(scenario);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var scenario = await _context.Scenarios.FindAsync(id);
+            if (scenario == null) return NotFound();
+
+            _context.Scenarios.Remove(scenario);
+            await _context.SaveChangesAsync();
+            return Ok(new { message = "Deleted" });
         }
     }
 }

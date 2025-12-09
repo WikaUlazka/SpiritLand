@@ -1,0 +1,72 @@
+.spirit-details-wrapper {
+  padding: 2rem;
+}
+
+/* Nagłówek */
+.spirit-name {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #2e2e6f;
+  text-align: center;
+}
+
+.spirit-info {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.spirit-main-img {
+  width: 360px;
+  border-radius: 18px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.spirit-description {
+  max-width: 600px;
+  font-size: 1.1rem;
+}
+
+/* Aspekty */
+.aspects-title {
+  font-size: 1.7rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+
+.aspects-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.aspect-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.aspect-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+}
+
+.aspect-img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  object-fit: contain;
+  background: #f6f6f6;
+}
+
+.aspect-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}

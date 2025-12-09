@@ -1,24 +1,27 @@
-<h2>Dodaj nową grę</h2>
-
-<form (ngSubmit)="addGame()" class="form">
-  <label>Data gry:</label>
-  <input type="date" [(ngModel)]="newGame.date" name="date" required />
-
-  <label>Wynik:</label>
-  <select [(ngModel)]="newGame.result" name="result">
-    <option value="win">Wygrana</option>
-    <option value="loss">Przegrana</option>
-  </select>
-
-  <label>Gracze:</label>
-  <div>
-    <input type="text" [(ngModel)]="newPlayer" placeholder="nazwa gracza" name="player" />
-    <button type="button" (click)="addPlayer()">Dodaj</button>
+<div class="games-container">
+  <div class="header-row">
+    <h2>Twoje partie</h2>
+    <a routerLink="/games/new" class="new-game-btn">+ Nowa partia</a>
   </div>
 
-  <ul>
-    <li *ngFor="let p of newGame.players">{{ p.username }}</li>
-  </ul>
+  <div class="game-list">
+    <div class="game-card" *ngFor="let g of games" (click)="openGame(g.id)">
+      <div class="card-top">
+        <div class="game-id">#{{ g.id }}</div>
 
-  <button type="submit">Zapisz grę</button>
-</form>
+        <span class="result-tag" [ngClass]="g.result">
+          {{ g.result === 'win' ? 'Wygrana' : 'Przegrana' }}
+        </span>
+      </div>
+
+      <div class="card-body">
+        <p><strong>Data:</strong> {{ g.datePlayed | date }}</p>
+      </div>
+
+      <div class="actions">
+        <button class="edit" (click)="editGame(g.id); $event.stopPropagation()">Edytuj</button>
+        <button class="delete" (click)="deleteGame(g.id); $event.stopPropagation()">Usuń</button>
+      </div>
+    </div>
+  </div>
+</div>

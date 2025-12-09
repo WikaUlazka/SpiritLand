@@ -1,12 +1,29 @@
 <header class="navbar">
-  <h1 class="logo">Spiritland 🎲</h1>
-  <nav class="nav-links">
-    <a routerLink="/games" routerLinkActive="active">Gry</a>
-    <a routerLink="/stats" routerLinkActive="active">Statystyki</a>
-    <a routerLink="/users" routerLinkActive="active">Użytkownicy</a>
-    <a routerLink="/register" routerLinkActive="active">Rejestracja</a>
-    <a routerLink="/login" routerLinkActive="active">Logowanie</a>
-  </nav>
+  <div class="container">
+    <h1 class="logo" routerLink="/">Spiritland 🎲</h1>
+
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        >Start</a
+      >
+
+      <a routerLink="/games" routerLinkActive="active">Gry</a>
+      <a routerLink="/spirits" routerLinkActive="active">Duchy</a>
+      <a routerLink="/scenarios" routerLinkActive="active">Scenariusze</a>
+      <a routerLink="/adversaries" routerLinkActive="active">Przeciwnicy</a>
+
+      <ng-container *ngIf="auth.isLogged(); else guestLinks">
+        <a routerLink="/users" routerLinkActive="active">Profil</a>
+
+        <a (click)="logout()" class="logout-btn">Wyloguj</a>
+      </ng-container>
+
+      <ng-template #guestLinks>
+        <a routerLink="/login" routerLinkActive="active">Logowanie</a>
+        <a routerLink="/register" routerLinkActive="active">Rejestracja</a>
+      </ng-template>
+    </nav>
+  </div>
 </header>
 
 <main class="content">

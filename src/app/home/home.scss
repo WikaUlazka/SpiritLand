@@ -4,70 +4,85 @@
   padding: 2rem;
   text-align: center;
 
-  h1 {
-    font-size: 2rem;
+  .logo {
+    font-size: 2.6rem;
     color: #4a47a3;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
   }
 
-  p {
-    color: #555;
-    margin-bottom: 1rem;
+  .subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 2rem;
   }
 
-  .ghost-list {
+  .tiles {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin: 2rem 0;
+    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    margin-bottom: 2rem;
   }
 
-  .ghost-card {
+  .tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.4rem;
     background: #fff;
     border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #4a47a3;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    cursor: pointer;
 
-    h3 {
-      color: #4a47a3;
-      margin-bottom: 0.5rem;
-    }
+    transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
 
-    p {
-      color: #666;
-      font-size: 0.9rem;
+    &:hover {
+      transform: translateY(-4px);
+      background: #4a47a3;
+      color: #fff;
     }
   }
 
-  .actions {
+  .logout {
+    background: #d9534f !important;
+    color: white !important;
+
+    &:hover {
+      background: #b83f3b !important;
+      transform: translateY(-4px);
+    }
+  }
+
+  .auth-actions {
     display: flex;
     justify-content: center;
     gap: 1rem;
 
-    button {
-      padding: 0.8rem 1.2rem;
-      border: none;
+    .btn {
+      padding: 0.8rem 1.4rem;
       border-radius: 0.5rem;
-      background-color: #4a47a3;
-      color: white;
       font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s;
+      background: #4a47a3;
+      color: white;
+      text-decoration: none;
+
+      transition: background 0.2s;
 
       &:hover {
-        background-color: #363480;
+        background: #363480;
       }
     }
-  }
 
-  .welcome {
-    text-align: center;
+    .btn-secondary {
+      background: #6865c7;
 
-    h1 {
-      color: #4a47a3;
-    }
-
-    p {
-      margin-bottom: 1.5rem;
+      &:hover {
+        background: #4a47a3;
+      }
     }
   }
 }

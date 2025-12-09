@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,8 @@ export class Register {
   password = '';
   confirmPassword = '';
 
+  constructor(private auth: AuthService) {}
+
   register() {
     if (!this.username || !this.email || !this.password) {
       alert('Wszystkie pola są wymagane!');
@@ -26,15 +29,24 @@ export class Register {
       return;
     }
 
-    console.log('Zarejestrowano:', {
+    const payload = {
       username: this.username,
       email: this.email,
-    });
+      password: this.password, 
+    };
 
-    alert(`Konto ${this.username} zostało zarejestrowane!`);
-    this.username = '';
-    this.email = '';
-    this.password = '';
-    this.confirmPassword = '';
+    this.auth.register(payload).subscribe({
+      next: () => {
+        alert(`Konto ${this.username} zostało zarejestrowane!`);
+        this.username = '';
+        this.email = '';
+        this.password = '';
+        this.confirmPassword = '';
+      },
+      error: (err) => {
+        console.error(err);
+        alert('Rejestracja nie powiodła się!');
+      },
+    });
   }
 }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpiritlandBackend.Data;
@@ -17,25 +18,69 @@ namespace SpiritlandBackend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Adversary>>> GetAdversaries()
+        public async Task<IActionResult> GetAll()
         {
-            return await _context.Adversaries.ToListAsync();
+            var adversaries = await _context.Adversaries.ToListAsync();
+            return Ok(adversaries);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Adversary>> GetAdversary(int id)
+        public async Task<IActionResult> GetById(int id)
         {
-            var adversary = await _context.Adversaries.FindAsync(id);
-            if (adversary == null) return NotFound();
-            return adversary;
+            var adv = await _context.Adversaries.FirstOrDefaultAsync(a => a.Id == id);
+
+            if (adv == null)
+                return NotFound();
+
+            return Ok(adv);
         }
 
+        [Authorize]
         [HttpPost]
-        public async Task<ActionResult<Adversary>> CreateAdversary(Adversary adversary)
+        public async Task<IActionResult> Create(CreateAdversaryDto dto)
         {
-            _context.Adversaries.Add(adversary);
+            var adv = new Adversary
+            {
+                Name = dto.Name,
+                ImageUrl = dto.ImageUrl
+            };
+
+            _context.Adversaries.Add(adv);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetAdversary), new { id = adversary.Id }, adversary);
+
+            return Ok(adv);
+        }
+
+        [Authorize]
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, CreateAdversaryDto dto)
+        {
+            var adv = await _context.Adversaries.FindAsync(id);
+            if (adv == null)
+                return NotFound();
+
+            adv.Name = dto.Name;
+            adv.ImageUrl = dto.ImageUrl;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(adv);
+        }
+
+        [Authorize]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var adversary = await _context.Adversaries
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (adversary == null)
+                return NotFound();
+
+            _context.Adversaries.Remove(adversary);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Deleted" });
         }
     }
 }

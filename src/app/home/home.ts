@@ -1,32 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
+  imports: [CommonModule, RouterModule],
 })
-export class Home {
+export class Home implements OnInit {
   user: any = null;
 
-  ghosts = [
-    { name: 'Aetherion', desc: 'Duch powietrza, szybki i nieuchwytny.' },
-    { name: 'Mournshade', desc: 'Duch cienia, manipuluje ciemnością.' },
-    { name: 'Pyrelith', desc: 'Duch ognia, nieprzewidywalny i potężny.' },
-    { name: 'Eclipsera', desc: 'Duch równowagi, kontroluje dzień i noc.' },
-  ];
+  constructor(public auth: AuthService) {}
 
-  constructor(private router: Router) {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) this.user = JSON.parse(storedUser);
+  ngOnInit() {
+    this.user = this.auth.getUser();
   }
 
   logout() {
-    localStorage.removeItem('user');
-    this.router.navigate(['/home']);
+    this.auth.logout();
     this.user = null;
+    window.location.href = '/';
   }
 }

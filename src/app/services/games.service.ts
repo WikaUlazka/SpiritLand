@@ -1,27 +1,40 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Game } from '../models/game.model';
+import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class GamesService {
-  private games: Game[] = [];
+  private apiUrl = 'http://localhost:5288/api/games';
 
-  constructor() {
-    const saved = localStorage.getItem('games');
-    if (saved) this.games = JSON.parse(saved);
+  constructor(private http: HttpClient, private auth: AuthService) {}
+
+  private authHeaders() {
+    return {
+      headers: {
+        Authorization: `Bearer ${this.auth.getToken()}`,
+      },
+    };
   }
 
-  getAll(): Game[] {
-    return this.games;
+  getUserGames(): Observable<Game[]> {
+    return this.http.get<Game[]>(`${this.apiUrl}/user`, this.authHeaders());
   }
 
-  add(game: Game) {
-    game.id = this.games.length + 1;
-    this.games.push(game);
-    localStorage.setItem('games', JSON.stringify(this.games));
+  getGame(id: number): Observable<Game> {
+    return this.http.get<Game>(`${this.apiUrl}/${id}`, this.authHeaders());
   }
 
-  remove(id: number) {
-    this.games = this.games.filter((g) => g.id !== id);
-    localStorage.setItem('games', JSON.stringify(this.games));
+  createGame(game: Game): Observable<Game> {
+    return this.http.post<Game>(this.apiUrl, game, this.authHeaders());
+  }
+
+  updateGame(id: number, game: Partial<Game>) {
+    return this.http.put(`${this.apiUrl}/${id}`, game, this.authHeaders());
+  }
+
+  deleteGame(id: number) {
+    return this.http.delete(`${this.apiUrl}/${id}`, this.authHeaders());
   }
 }

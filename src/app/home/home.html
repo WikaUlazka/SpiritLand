@@ -1,31 +1,31 @@
 <div class="home">
   <ng-container *ngIf="!user; else loggedIn">
-    <h1>👻 Spiritland</h1>
-    <p>Witaj w świecie duchów i planszowych pojedynków!</p>
+    <h1 class="logo">Spiritland 🎲</h1>
+    <p class="subtitle">Zarządzaj rozgrywkami, statystykami i duchami Spirit Island.</p>
 
-    <div class="ghost-list">
-      <div class="ghost-card" *ngFor="let ghost of ghosts">
-        <h3>{{ ghost.name }}</h3>
-        <p>{{ ghost.desc }}</p>
-      </div>
+    <div class="tiles">
+      <a routerLink="/spirits" class="tile">🌀 Duchy</a>
+      <a routerLink="/scenarios" class="tile">📜 Scenariusze</a>
+      <a routerLink="/adversaries" class="tile">👹 Przeciwnicy</a>
+      <a routerLink="/ranking" class="tile">🏆 Ranking</a>
     </div>
 
-    <div class="actions">
-      <button routerLink="/login">Zaloguj się</button>
-      <button routerLink="/register">Zarejestruj się</button>
-      <button routerLink="/ranking">Ranking</button>
+    <div class="auth-actions">
+      <a routerLink="/login" class="btn">Logowanie</a>
+      <a routerLink="/register" class="btn btn-secondary">Rejestracja</a>
     </div>
   </ng-container>
 
   <ng-template #loggedIn>
-    <div class="welcome">
-      <h1>👋 Witaj ponownie, {{ user.username }}!</h1>
-      <p>Gotowy na kolejną rozgrywkę?</p>
+    <h1 class="logo">👋 Witaj, {{ user.username }}!</h1>
+    <p class="subtitle">Gotowy na kolejną przygodę?</p>
 
-      <div class="actions">
-        <button routerLink="/games">Przejdź do gier</button>
-        <button (click)="logout()">Wyloguj się</button>
-      </div>
+    <div class="tiles">
+      <a routerLink="/games" class="tile">🎮 Moje gry</a>
+      <a routerLink="/games/new" class="tile">➕ Nowa gra</a>
+      <a routerLink="/stats" class="tile">📊 Statystyki</a>
+      <a routerLink="/users" class="tile">👤 Profil</a>
+      <button class="tile logout" (click)="logout()">🚪 Wyloguj</button>
     </div>
   </ng-template>
 </div>

@@ -2,31 +2,56 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
   styleUrls: ['./login.scss'],
+  imports: [CommonModule, FormsModule],
 })
 export class Login {
   email = '';
   password = '';
+  loading = false;
 
-  constructor(private router: Router) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
-  onLogin() {
+  login() {
     if (!this.email || !this.password) {
-      alert('Podaj e-mail i hasło');
+      alert('Uzupełnij wszystkie pola!');
       return;
     }
 
-    // 🔹 Symulacja logowania — zapisujemy użytkownika w localStorage
-    const user = { username: this.email.split('@')[0] };
-    localStorage.setItem('user', JSON.stringify(user));
+    this.loading = true;
 
-    // 🔹 Przekierowanie na stronę główną
-    this.router.navigate(['/home']);
+    this.auth.login({ email: this.email, password: this.password }).subscribe({
+      next: (res: any) => {
+        console.log('LOGIN RESPONSE:', res);
+
+        this.auth.saveToken(res.token);
+
+        if (res.user) {
+          this.auth.saveUser(res.user);
+        } else {
+          this.auth.getProfile().subscribe((profile) => {
+            this.auth.saveUser(profile);
+          });
+        }
+
+        this.email = '';
+        this.password = '';
+
+        this.loading = false;
+
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        this.loading = false;
+        console.error('LOGIN ERROR:', err);
+        alert('Nieprawidłowe dane logowania');
+      },
+    });
   }
 }

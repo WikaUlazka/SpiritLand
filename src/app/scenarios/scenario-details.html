@@ -1,0 +1,22 @@
+<div class="scenario-details-wrapper">
+  <div *ngIf="loading" class="loading">Ładowanie...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && scenario" class="scenario-details">
+    <h1 class="scenario-name">{{ scenario.name }}</h1>
+
+    <div class="scenario-info">
+      <img
+        *ngIf="scenario.imageUrl"
+        class="scenario-main-img"
+        [src]="'http://localhost:5288' + scenario.imageUrl"
+        alt="{{ scenario.name }}"
+      />
+
+      <div class="scenario-description">
+        <p><strong>Trudność:</strong> {{ scenario.difficulty }}</p>
+        <p>{{ scenario.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

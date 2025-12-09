@@ -1,0 +1,17 @@
+<div class="profile-container">
+  <h2>Profil użytkownika</h2>
+
+  <div *ngIf="loading">Ładowanie...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && user" class="profile-card">
+    <p><strong>Nazwa:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Data rejestracji:</strong> {{ user.createdAt | date }}</p>
+
+    <p><strong>Ulubiony duch:</strong> {{ favoriteSpiritName }}</p>
+    <p><strong>Ulubiony aspekt:</strong> {{ favoriteAspectName }}</p>
+
+    <a routerLink="/users/edit" class="edit-btn">Edytuj profil</a>
+  </div>
+</div>

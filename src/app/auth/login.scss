@@ -1,61 +1,70 @@
-.login-container {
-  max-width: 400px;
-  margin: 50px auto;
+.auth-container {
+  max-width: 380px;
+  margin: 60px auto;
   padding: 2rem;
-  background: #fff;
+  background: #ffffff;
   border-radius: 1rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
   text-align: center;
+  animation: fadeIn 0.4s ease;
 }
 
-.login-form {
+.auth-container h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-weight: 700;
+}
+
+.auth-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 1rem;
+  text-align: left;
 }
 
 label {
-  display: block;
-  text-align: left;
+  font-size: 0.9rem;
   font-weight: 600;
-  margin-bottom: 0.3rem;
+  color: #444;
 }
 
 input {
-  padding: 0.6rem;
-  border: 1px solid #ccc;
+  padding: 0.7rem;
+  border: 1px solid #d1d1d1;
   border-radius: 0.5rem;
-  width: 100%;
+  font-size: 1rem;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: #4a47a3;
+  box-shadow: 0 0 6px rgba(74, 71, 163, 0.3);
 }
 
 button {
-  padding: 0.8rem;
+  padding: 0.9rem;
   border: none;
   border-radius: 0.5rem;
-  background-color: #4a47a3;
+  background: #4a47a3;
   color: white;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: 0.3s ease;
 }
 
 button:hover {
-  background-color: #363480;
+  background: #363480;
 }
 
-.register-link {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #333;
-
-  a {
-    color: #4a47a3;
-    font-weight: 600;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -1,0 +1,78 @@
+.edit-container {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.edit-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #352f87;
+}
+
+.form-group {
+  margin-bottom: 1.3rem;
+
+  label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: 0.25s ease;
+
+    &:focus {
+      border-color: #5944d6;
+      outline: none;
+      box-shadow: 0 0 4px rgba(90, 69, 214, 0.4);
+    }
+  }
+}
+
+.save-btn {
+  width: 100%;
+  background: #5a45d6;
+  padding: 0.9rem;
+  border-radius: 12px;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 0.7rem;
+  transition: background 0.25s ease;
+
+  &:hover {
+    background: #4735b2;
+  }
+}
+
+.cancel-btn {
+  width: 100%;
+  margin-top: 0.8rem;
+  background: #ccc;
+  padding: 0.9rem;
+  border-radius: 12px;
+  border: none;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.25s;
+
+  &:hover {
+    background: #b5b5b5;
+  }
+}

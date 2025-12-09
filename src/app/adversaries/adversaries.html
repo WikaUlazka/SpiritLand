@@ -1,0 +1,27 @@
+<div class="adversaries-container">
+  <h2 class="title">Lista Przeciwników</h2>
+
+  <div *ngIf="loading" class="info">Ładowanie...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="!loading && adversaries.length === 0" class="info">Brak przeciwników w bazie.</div>
+
+  <div class="adversaries-grid">
+    <div *ngFor="let a of adversaries" class="adversary-card">
+      <div class="adversary-image-wrapper">
+        <img
+          *ngIf="a.imageUrl"
+          [src]="'http://localhost:5288' + a.imageUrl"
+          alt="{{ a.name }}"
+          class="adversary-img"
+        />
+
+        <div *ngIf="!a.imageUrl" class="adversary-placeholder"></div>
+      </div>
+
+      <div class="adversary-content">
+        <h3>{{ a.name }}</h3>
+      </div>
+    </div>
+  </div>
+</div>

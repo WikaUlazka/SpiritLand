@@ -1,0 +1,63 @@
+<div class="game-wrapper" *ngIf="game && !loading">
+  <div class="page-header">
+    <h1>Partia #{{ game.id }}</h1>
+    <a routerLink="/games" class="back-btn">← Powrót</a>
+  </div>
+
+  <div class="section card">
+    <h2>Informacje ogólne</h2>
+
+    <div class="info-grid">
+      <div><strong>Data:</strong> {{ game.datePlayed | date }}</div>
+      <div>
+        <strong>Wynik:</strong>
+        <span class="tag" [ngClass]="game.result">
+          {{ game.result === 'win' ? 'Wygrana' : 'Przegrana' }}
+        </span>
+      </div>
+
+      <div><strong>Przyczyna zakończenia:</strong> {{ game.endReason || '—' }}</div>
+      <div><strong>Liczba tur:</strong> {{ game.turns || '—' }}</div>
+
+      <div><strong>Układ planszy:</strong> {{ game.boardSetup || '—' }}</div>
+      <div><strong>Skażona wyspa:</strong> {{ game.blightedIsland ? 'Tak' : 'Nie' }}</div>
+
+      <div><strong>Przeciwnik:</strong> {{ game.adversary?.name || '—' }}</div>
+      <div><strong>Poziom przeciwnika:</strong> {{ game.difficulty || '—' }}</div>
+
+      <div><strong>Scenariusz:</strong> {{ game.scenario?.name || '—' }}</div>
+    </div>
+
+    <div class="comment-box">
+      <strong>Komentarz:</strong>
+      <p>{{ game.comment || '—' }}</p>
+    </div>
+  </div>
+
+  <div class="section card">
+    <h2>Gracze</h2>
+
+    <div class="players">
+      <div class="player-card" *ngFor="let p of players">
+        <h3>{{ p.user.username }}</h3>
+
+        <label>Duch</label>
+        <select [(ngModel)]="p.spiritId" (change)="onSpiritChange(p)">
+          <option [ngValue]="null">— brak —</option>
+          <option *ngFor="let s of spirits" [ngValue]="s.id">{{ s.name }}</option>
+        </select>
+
+        <label>Aspekt</label>
+        <select [(ngModel)]="p.aspectId" [disabled]="p.availableAspects?.length === 0">
+          <option [ngValue]="null">— brak —</option>
+          <option *ngFor="let a of p.availableAspects" [ngValue]="a.id">{{ a.name }}</option>
+        </select>
+
+        <label>Notatki</label>
+        <textarea [(ngModel)]="p.notes"></textarea>
+
+        <button class="save-btn" (click)="savePlayer(p)">Zapisz</button>
+      </div>
+    </div>
+  </div>
+</div>

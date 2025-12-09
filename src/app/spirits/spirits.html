@@ -1,26 +1,31 @@
 <div class="spirits-container">
-  <h2>Lista Duchów</h2>
+  <h2 class="title">Duchy</h2>
 
-  <div *ngIf="loading" class="loading">⏳ Wczytywanie...</div>
+  <div class="search-wrapper">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Szukaj ducha..."
+      [(ngModel)]="searchTerm"
+      (input)="filterSpirits()"
+    />
+  </div>
+
+  <div *ngIf="loading" class="info">Ładowanie...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
 
-  <div *ngIf="!loading && spirits.length === 0" class="empty">Brak danych w bazie.</div>
-
-  <ul *ngIf="!loading && spirits.length > 0" class="spirit-list">
-    <li *ngFor="let s of spirits" class="spirit-card">
-      <div class="spirit-header">
-        <img *ngIf="s.imageUrl" [src]="s.imageUrl" [alt]="s.name" class="spirit-image" />
-        <div class="spirit-info">
-          <h3 class="spirit-name">{{ s.name }}</h3>
-          <p class="spirit-complexity">
-            <strong>Złożoność:</strong> {{ s.complexity || 'brak danych' }}
-          </p>
-        </div>
+  <div class="spirits-grid">
+    <a *ngFor="let s of filteredSpirits" class="spirit-card" [routerLink]="['/spirits', s.id]">
+      <div class="spirit-image-wrapper">
+        <img
+          *ngIf="s.imageUrl"
+          class="spirit-img"
+          [src]="'http://localhost:5288' + s.imageUrl"
+          alt="{{ s.name }}"
+        />
       </div>
 
-      <p class="spirit-description">
-        {{ s.description || 'brak opisu' }}
-      </p>
-    </li>
-  </ul>
+      <h3 class="spirit-name">{{ s.name }}</h3>
+    </a>
+  </div>
 </div>
