@@ -1,147 +1,127 @@
-Spirit Island Score Tracker
+# 🌋 Spirit Island Score Tracker
 
-Aplikacja webowa do zapisywania, przeglądania i współdzielenia wyników z gry planszowej Spirit Island.
-Projekt składa się z frontendowej aplikacji Angular, backendu ASP.NET Core oraz bazy danych PostgreSQL.
-Aplikacja umożliwia prowadzenie profilu gracza, tworzenie i edycję partii, zarządzanie duchami, aspektami, przeciwnikami i scenariuszami.
+Aplikacja webowa do zapisywania, przeglądania i współdzielenia wyników z gry planszowej **Spirit Island**.  
+Projekt składa się z frontendowej aplikacji **Angular**, backendu **ASP.NET Core Web API** oraz bazy danych **PostgreSQL**.
 
-Spis treści
+---
 
-Opis projektu
+## 📑 Spis treści
 
-Funkcje
+1. [Opis projektu](#opis-projektu)
+2. [Funkcje](#funkcje)
+3. [Stos technologiczny](#stos-technologiczny)
+4. [Screeny aplikacji](#screeny-aplikacji)
 
-Stos technologiczny
+---
 
-Architektura
+## 📘 Opis projektu
 
-Wymagania systemowe
+**Spirit Island Score Tracker** to aplikacja wspierająca graczy Spirit Island w rejestrowaniu i przeglądaniu ich rozgrywek.  
+Umożliwia:
 
-Instalacja i uruchomienie
+- zapisywanie szczegółów każdej partii,
+- przegląd historii gier,
+- współdzielenie partii oraz zapraszanie innych użytkowników,
+- zarządzanie duchami, aspektami, scenariuszami i przeciwnikami.
 
-Struktura projektu
+Aplikacja może działać jako narzędzie indywidualne lub społecznościowe, z możliwością dalszej rozbudowy.
 
-Modele danych
+---
 
-Opis projektu:
+## 🎮 Funkcje
 
-Spirit Island Score Tracker to aplikacja wspierająca graczy Spirit Island w rejestrowaniu i analizowaniu przebiegu ich rozgrywek.
-Projekt umożliwia:
+### **1️⃣ Konta użytkowników**
 
-zapisywanie szczegółów każdej partii,
+- Rejestracja i logowanie (JWT / Identity)
+- Profil użytkownika: nazwa, ulubiony duch i aspekt, data rejestracji
+- Edycja profilu i zmiana hasła
 
-przegląd historii gier na poziomie użytkownika,
+### **2️⃣ Interakcje użytkowników**
 
-współdzielenie partii i zapraszanie innych graczy,
+- Wyszukiwanie użytkowników po nazwie
+- Podgląd profilu oraz ostatnich rozgrywek
 
-zarządzanie listami duchów, aspektów, przeciwników i scenariuszy.
+### **3️⃣ Duchy i aspekty**
 
-Aplikacja jest przygotowana do działania jako narzędzie indywidualne oraz społecznościowe, z możliwością dalszej rozbudowy.
+- Lista duchów z opisami i poziomem złożoności
+- Lista aspektów przypisanych do każdego ducha
+- Możliwość ustawienia ulubionego ducha
 
-Funkcje
+### **4️⃣ Przeciwnicy**
 
-1. Konta użytkowników
+- Lista przeciwników z poziomami trudności i opisami
 
-Rejestracja i logowanie (JWT / Identity).
+### **5️⃣ Scenariusze i tryby gry**
 
-Profil użytkownika: nazwa, ulubiony duch z aspektem, data rejestracji.
+- Lista scenariuszy (np. Blitz, The Great River)
 
-Edycja profilu i zmiana hasła.
+### **6️⃣ Tworzenie i współdzielenie partii**
 
-2. Interakcje użytkowników
+- Tworzenie nowej partii i zapraszanie graczy
+- Wspólna edycja wpisów o rozgrywce
+- Zaproszenia do udziału w partii
 
-Wyszukiwanie użytkowników po nazwie.
-
-Podgląd profilu i ostatnich rozgrywek.
-
-3. Duchy i aspekty
-
-Lista duchów z opisami i poziomem złożoności.
-
-Lista aspektów przypisanych do każdego ducha.
-
-Wybór ulubionego ducha w profilu.
-
-4. Przeciwnicy
-
-Lista przeciwników, ich poziomy trudności i opisy.
-
-5. Scenariusze i tryby gry
-
-Lista scenariuszy (np. Blitz, The Great River).
-
-6. Tworzenie i współdzielenie partii
-
-Tworzenie nowej partii i zapraszanie graczy.
-
-Wspólna edycja: każdy gracz edytuje swoje dane (duch, wynik, notatki).
-
-Zaproszenia do udziału w partii.
-
-7. Szczegóły rozgrywki
+### **7️⃣ Szczegóły rozgrywki**
 
 Każda partia zawiera:
 
-datę,
+- datę rozegrania
+- listę graczy
+- ducha i aspekt każdego gracza
+- przeciwnika i poziom trudności
+- scenariusz (jeśli użyty)
+- stan wyspy (zarażona / normalna)
+- wynik (wygrana / przegrana)
+- powód zakończenia (Fear Victory, Blight Loss itp.)
+- liczbę tur, komentarze oraz układ planszy
 
-listę graczy,
+---
 
-ducha i aspekt każdego gracza,
+## 🛠️ Stos technologiczny
 
-wybranego przeciwnika + poziom,
+### **Frontend**
 
-scenariusz (jeśli użyty),
+- Angular 17
+- TypeScript
+- SCSS
+- Angular Router
+- JWT Authentication
+- Reactive Forms
 
-stan wyspy (zarażona / normalna),
+### **Backend**
 
-wynik (wygrana / przegrana),
+- ASP.NET Core 8 (Web API)
+- Entity Framework Core
+- JWT Authentication
+- Clean Controller Structure
 
-powód zakończenia (Fear Victory, Blight Loss, itp.),
+### **Baza danych**
 
-liczbę tur, komentarze, opis układu planszy.
+- PostgreSQL
+- pgAdmin
 
-8. Wyszukiwanie i filtrowanie
+---
 
-Filtracja gier po duchu, scenariuszu, poziomie trudności, przeciwniku, uczestniku, wyniku.
+## 🖼️ Screeny aplikacji
 
-Stos technologiczny
-Frontend
+### 📊 Diagram bazy danych
 
-Angular 17
+![Database diagram](screenshots/Data_base.png)
 
-TypeScript
+### 🌀 Pogląd duchów
 
-SCSS
+![Duchy](screenshots/Spirits.png)
 
-Angular Router
+### 🔍 Szczegóły ducha
 
-JWT Auth
+![Duch](screenshots/S_D.png)
 
-Reactive Forms / Template Forms
+### 📜 Pogląd scenariuszy
 
-Backend
+![Scenariusze](screenshots/scenario.png)
 
-ASP.NET Core 8 (Web API)
+### ⚔ Pogląd przeciwników
 
-Entity Framework Core
+![Przeciwnicy](screenshots/adversaries.png)
 
-JWT Authentication
-
-Clean Controller structure
-
-Baza danych
-
-PostgreSQL
-
-pgAdmin
-
-9. Screeny aplikacji
-   Diagram bazy danych
-   ![Database diagram](screenshots/Data_base.png)
-   Pogląd duchów
-   ![Duchy](screenshots/Spirits.png)
-   Szczegóły ducha
-   ![Duch](screenshots/S_D.png)
-   Pogląd scenariuszy
-   ![Scenariusze](screenshots/scenario.png)
-   Pogląd przeciwników
-   ![Przeciwnicy](screenshots/adversaries.png)
+---
