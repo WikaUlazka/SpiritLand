@@ -124,4 +124,14 @@ Każda partia zawiera:
 
 ![Przeciwnicy](screenshots/adversaries.png)
 
+### Dodanie rozgrywki 
+
+<img width="1503" height="847" alt="image" src="https://github.com/user-attachments/assets/e15c713f-b96b-4cda-9eab-a8c7fb283f3f" />
+<img width="900" height="824" alt="image" src="https://github.com/user-attachments/assets/b5607b54-77b6-4020-9ee4-a75ded7957cc" />
+<img width="916" height="817" alt="image" src="https://github.com/user-attachments/assets/5100f89f-9526-44d7-80a8-f664a6ebcfb9" />
+
+### Szczegóły rozgrywki 
+<img width="1133" height="870" alt="image" src="https://github.com/user-attachments/assets/f2457044-c576-40f6-86e6-4eb3b721efdf" />
+
+
 ---
