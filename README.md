@@ -1,8 +1,8 @@
 # 🌋 Spiritland — Spirit Island Game Tracker
 
-Aplikacja webowa do rejestrowania, przeglądania i współdzielenia rozgrywek w grze planszowej **Spirit Island**. Spiritland łączy historię partii, statystyki graczy, profile użytkowników oraz bazę wiedzy o duchach, aspektach, scenariuszach i przeciwnikach.
+Aplikacja webowa do rejestrowania, przeglądania i współdzielenia rozgrywek w grze planszowej **Spirit Island**. Spiritland umożliwia prowadzenie historii partii, analizowanie wyników, zarządzanie profilem użytkownika oraz przeglądanie katalogu duchów, aspektów, scenariuszy i przeciwników.
 
-Projekt składa się z aplikacji frontendowej napisanej w Angularze, backendu opartego na ASP.NET Core Web API oraz relacyjnej bazy danych PostgreSQL.
+Projekt składa się z aplikacji frontendowej napisanej w Angularze, backendu ASP.NET Core Web API oraz relacyjnej bazy danych PostgreSQL.
 
 ---
 
@@ -17,120 +17,207 @@ Projekt składa się z aplikacji frontendowej napisanej w Angularze, backendu op
 - [Uruchomienie projektu](#-uruchomienie-projektu)
 - [Baza danych](#-baza-danych)
 - [Możliwości rozwoju](#-możliwości-rozwoju)
+- [Autor](#-autor)
 
 ---
 
 ## 📘 Opis projektu
 
-**Spiritland** to aplikacja wspierająca graczy *Spirit Island* w organizowaniu i analizowaniu rozgrywek.
+**Spiritland** to aplikacja webowa wspierająca graczy *Spirit Island* w organizowaniu, dokumentowaniu i analizowaniu rozgrywek.
 
-Użytkownicy mogą tworzyć historię swoich partii, zapisywać ich przebieg, wybierać wykorzystane duchy i aspekty oraz sprawdzać wcześniejsze wyniki. Aplikacja umożliwia również zapraszanie innych użytkowników do rozgrywek.
+Użytkownicy mogą zapisywać wyniki partii, przypisywać do nich uczestników, duchy i aspekty, a także przeglądać szczegóły wcześniejszych rozgrywek. Aplikacja umożliwia również zapraszanie innych użytkowników do wspólnej gry.
 
-Oprócz funkcji związanych z historią gier Spiritland udostępnia katalog elementów gry planszowej, dzięki czemu można szybko sprawdzić informacje o duchach, ich aspektach, scenariuszach i przeciwnikach.
+Dodatkowo Spiritland udostępnia katalog elementów gry planszowej, który pozwala zapoznać się z opisami i grafikami duchów, aspektów, scenariuszy oraz przeciwników.
+
+---
 
 ## 🎮 Funkcjonalności
 
 ### 1. 🔐 Konta użytkowników
 
 - Rejestracja i logowanie.
-- Uwierzytelnianie za pomocą tokenów JWT.
+- Uwierzytelnianie użytkowników za pomocą tokenów JWT.
 - Wyświetlanie profilu użytkownika.
 - Edycja danych profilu.
 - Wybór ulubionego ducha i aspektu.
+- Rozdzielenie widoków i funkcji dla użytkowników zalogowanych i niezalogowanych.
 
 ### 2. 🎲 Zarządzanie rozgrywkami
 
-- Tworzenie nowych partii.
-- Przeglądanie listy rozgrywek.
-- Wyświetlanie szczegółów zapisanej partii.
-- Edycja i usuwanie rozgrywek.
-- Zapisywanie informacji o przebiegu i rezultacie gry.
+- Tworzenie nowych rozgrywek.
+- Wyświetlanie listy własnych i współdzielonych partii.
+- Podgląd szczegółów rozgrywki.
+- Edycja i usuwanie partii.
+- Przypisywanie graczy do rozgrywki.
+- Wybór ducha i aspektu dla każdego uczestnika.
+- Zapisywanie notatek dotyczących uczestników.
 
-Każda rozgrywka może zawierać:
+Informacje zapisywane w rozgrywce obejmują:
 
 - datę rozegrania;
-- listę graczy;
-- ducha i aspekt przypisany do gracza;
-- wybranego przeciwnika i poziom trudności;
+- uczestników;
+- duchy i aspekty graczy;
+- przeciwnika i poziom trudności;
 - wykorzystany scenariusz;
-- informację o stanie wyspy;
-- wynik rozgrywki — wygraną lub przegraną;
-- powód zakończenia partii;
+- stan wyspy — skażona lub nieskażona;
+- wynik — wygrana lub przegrana;
+- przyczynę zakończenia;
 - liczbę tur;
-- komentarze i dodatkowe informacje;
+- komentarze;
 - układ planszy.
 
 ### 3. ✉️ Zaproszenia do rozgrywek
 
 - Wysyłanie zaproszeń do innych użytkowników.
-- Przeglądanie oczekujących zaproszeń.
+- Wyświetlanie oczekujących zaproszeń.
 - Akceptowanie i odrzucanie zaproszeń.
 - Dodawanie zaakceptowanych uczestników do rozgrywki.
 - Wyświetlanie rozgrywek, w których użytkownik uczestniczy.
 
 ### 4. 🌀 Duchy i aspekty
 
-- Katalog duchów dostępnych w grze.
+- Katalog duchów z grafikami.
 - Wyszukiwanie duchów po nazwie.
-- Szczegółowy widok ducha.
-- Wyświetlanie poziomu złożoności i opisu ducha.
-- Lista aspektów przypisanych do konkretnego ducha.
-- Podgląd grafik duchów i kart aspektów.
+- Szczegółowy widok wybranego ducha.
+- Wyświetlanie poziomu złożoności i opisu.
+- Katalog aspektów przypisanych do ducha.
+- Wyświetlanie grafik i nazw kart aspektów.
 
 ### 5. 📜 Scenariusze
 
-- Przeglądanie dostępnych scenariuszy.
+- Katalog scenariuszy.
 - Wyszukiwanie scenariuszy po nazwie.
-- Wyświetlanie szczegółowych opisów i poziomów trudności.
-- Podgląd grafik scenariuszy.
+- Szczegółowy widok scenariusza.
+- Prezentacja poziomu trudności, opisu i grafiki.
 
 ### 6. 👹 Przeciwnicy
 
-- Katalog przeciwników.
-- Wyświetlanie grafik i nazw przeciwników.
-- Możliwość powiększenia grafiki, aby łatwiej odczytać informacje znajdujące się na karcie, jeśli funkcja podglądu jest dostępna w aktualnej wersji aplikacji.
+- Katalog przeciwników dostępnych w grze.
+- Wyświetlanie nazw i grafik kart przeciwników.
+- Możliwość powiększenia grafiki karty w celu odczytania jej zawartości, jeśli funkcja podglądu jest dostępna w aktualnej wersji aplikacji.
 
 ### 7. 📊 Statystyki
 
-- Zestawienia dotyczące rozegranych partii.
+- Zestawienia wyników rozgrywek.
 - Statystyki wygranych i przegranych.
-- Analiza wyników związanych z wykorzystywanymi duchami.
+- Statystyki dotyczące wykorzystywanych duchów.
 
 ### 8. 🎨 Interfejs użytkownika
 
-- Spójny wygląd oparty na fioletowej kolorystyce.
+- Spójna kolorystyka oparta na odcieniach fioletu.
 - Responsywne układy kart i formularzy.
 - Osobny ekran główny dla użytkowników zalogowanych i niezalogowanych.
-- Formularze tworzenia i edycji rozgrywek oraz profilu.
-- Czytelne widoki katalogów i szczegółów elementów gry.
+- Czytelne formularze tworzenia i edycji rozgrywek.
+- Widoki katalogów i szczegółów elementów gry.
+- Nawigacja pomiędzy głównymi sekcjami aplikacji.
 
 ---
 
 ## 🖼️ Interfejs aplikacji
 
-Poniższe zrzuty ekranu przedstawiają wybrane elementy aplikacji.
+Poniższe zrzuty ekranu przedstawiają najważniejsze widoki aplikacji Spiritland. Obrazy należy umieścić w katalogu `screenshots` w głównym folderze repozytorium.
 
-### 📊 Diagram bazy danych
+### 🏠 Strona główna
 
-![Diagram bazy danych](screenshots/Data_base.png)
+#### Strona główna — użytkownik niezalogowany
 
-### 🌀 Katalog duchów
+![Strona główna dla niezalogowanego użytkownika](screenshots/home-guest.png)
+
+#### Strona główna — użytkownik zalogowany
+
+![Strona główna dla zalogowanego użytkownika](screenshots/home-user.png)
+
+### 🔐 Konta użytkowników
+
+#### Logowanie
+
+![Ekran logowania](screenshots/login.png)
+
+#### Rejestracja
+
+![Ekran rejestracji](screenshots/register.png)
+
+#### Profil użytkownika
+
+![Profil użytkownika](screenshots/profile.png)
+
+#### Edycja profilu
+
+![Edycja profilu użytkownika](screenshots/profile-edit.png)
+
+### 🎲 Rozgrywki
+
+#### Lista rozgrywek — „Moje gry”
+
+![Lista rozgrywek użytkownika](screenshots/games-list.png)
+
+#### Tworzenie nowej rozgrywki
+
+![Formularz tworzenia rozgrywki](screenshots/game-create.png)
+
+#### Edycja rozgrywki
+
+![Formularz edycji rozgrywki](screenshots/game-edit.png)
+
+#### Szczegóły rozgrywki
+
+![Szczegóły rozgrywki](screenshots/game-details.png)
+
+### ✉️ Zaproszenia do rozgrywek
+
+#### Lista zaproszeń
+
+![Lista zaproszeń do rozgrywek](screenshots/invites.png)
+
+#### Zapraszanie graczy
+
+![Formularz zapraszania graczy](screenshots/invite-players.png)
+
+### 📊 Statystyki
+
+#### Statystyki użytkownika
+
+![Statystyki użytkownika](screenshots/stats.png)
+
+### 🌀 Duchy i aspekty
+
+#### Katalog duchów
 
 ![Lista duchów](screenshots/Spirits.png)
 
-### 🔍 Szczegóły ducha i aspekty
+#### Szczegóły ducha
 
 ![Szczegóły ducha](screenshots/S_D.png)
 
-### 📜 Katalog scenariuszy
+#### Karty aspektów ducha
+
+![Aspekty ducha](screenshots/spirit-aspects.png)
+
+### 📜 Scenariusze
+
+#### Katalog scenariuszy
 
 ![Lista scenariuszy](screenshots/scenario.png)
 
-### ⚔️ Katalog przeciwników
+#### Szczegóły scenariusza
+
+![Szczegóły scenariusza](screenshots/scenario-details.png)
+
+### ⚔️ Przeciwnicy
+
+#### Katalog przeciwników
 
 ![Lista przeciwników](screenshots/adversaries.png)
 
-> Zrzuty ekranu powinny znajdować się w katalogu `screenshots` w repozytorium.
+#### Powiększony podgląd karty przeciwnika
+
+![Powiększona karta przeciwnika](screenshots/adversary-preview.png)
+
+### 🗄️ Baza danych
+
+#### Diagram bazy danych
+
+![Diagram bazy danych](screenshots/Data_base.png)
 
 ---
 
@@ -160,38 +247,30 @@ Poniższe zrzuty ekranu przedstawiają wybrane elementy aplikacji.
 
 ### Architektura
 
-Aplikacja wykorzystuje architekturę klient–serwer. Frontend komunikuje się z backendem za pomocą żądań HTTP, a backend obsługuje logikę aplikacji i dostęp do danych przez Entity Framework Core.
+Aplikacja wykorzystuje architekturę klient–serwer. Frontend komunikuje się z backendem za pomocą żądań HTTP. Backend realizuje logikę aplikacji i obsługuje dostęp do danych za pośrednictwem Entity Framework Core.
 
 ---
 
 ## 📁 Struktura projektu
 
-Główne elementy rozwiązania:
+Główne elementy projektu:
 
 ```text
 SpiritLand/
-├── screenshots/
-│   ├── Data_base.png
-│   ├── Spirits.png
-│   ├── S_D.png
-│   ├── scenario.png
-│   └── adversaries.png
+├── screenshots/          # Zrzuty ekranu do README
 ├── src/
-│   └── app/
-│       ├── auth/
-│       ├── game-invites/
-│       ├── games/
-│       │   ├── game-details/
-│       │   ├── game-form/
-│       │   └── game-list/
-│       ├── home/
-│       ├── scenarios/
-│       ├── services/
-│       └── ...
+│   └── app/              # Komponenty aplikacji Angular
+│       ├── auth/         # Logowanie i rejestracja
+│       ├── games/        # Lista gier, formularze i szczegóły
+│       ├── game-invites/ # Zaproszenia do rozgrywek
+│       ├── home/         # Strona główna
+│       ├── scenarios/    # Widoki scenariuszy
+│       └── ...           # Pozostałe moduły i komponenty
+├── package.json
 └── README.md
 ```
 
-> Struktura jest poglądowa i przedstawia najważniejsze obszary aplikacji Angular. Backend ASP.NET Core stanowi osobną część rozwiązania.
+> To poglądowy schemat. Dokładna struktura katalogów zależy od bieżącej wersji projektu. Backend może znajdować się w osobnym katalogu.
 
 ---
 
@@ -199,11 +278,14 @@ SpiritLand/
 
 Przed uruchomieniem projektu przygotuj:
 
-- Node.js i npm w wersjach zgodnych z używaną wersją Angulara.
-- Angular CLI.
-- .NET 8 SDK.
-- PostgreSQL.
-- Dostęp do plików źródłowych projektu.
+- Node.js i npm w wersjach zgodnych z projektem Angular;
+- Angular CLI;
+- .NET 8 SDK;
+- PostgreSQL;
+- pgAdmin — opcjonalnie, do zarządzania bazą danych;
+- Git.
+
+---
 
 ## 🚀 Uruchomienie projektu
 
@@ -214,48 +296,55 @@ git clone https://github.com/WikaUlazka/SpiritLand.git
 cd SpiritLand
 ```
 
-### 2. Uruchomienie backendu
+### 2. Konfiguracja bazy danych
 
-Przejdź do katalogu zawierającego plik projektu `.csproj`:
+Uruchom PostgreSQL i skonfiguruj połączenie z bazą w konfiguracji backendu.
+
+Dane dostępowe, hasła oraz klucze JWT powinny być przechowywane lokalnie, a nie w publicznym repozytorium.
+
+### 3. Uruchomienie backendu
+
+Przejdź do katalogu zawierającego plik `.csproj`:
 
 ```bash
-cd <katalog-backendu>
 dotnet restore
 dotnet run
 ```
 
-Przed uruchomieniem upewnij się, że PostgreSQL działa, a konfiguracja połączenia z bazą danych jest prawidłowa.
+Jeśli backend znajduje się w osobnym katalogu, przejdź do niego przed wykonaniem poleceń.
 
-### 3. Uruchomienie frontendu
+### 4. Uruchomienie frontendu
 
-W osobnym terminalu przejdź do katalogu zawierającego `package.json`:
+W drugim terminalu przejdź do katalogu zawierającego `package.json`:
 
 ```bash
 npm install
-ng serve
+npx ng serve
 ```
 
-Następnie otwórz w przeglądarce:
+### 5. Otwarcie aplikacji
 
-**http://localhost:4200**
+W przeglądarce otwórz:
 
-> Ścieżki do katalogów backendu i frontendu należy dopasować do rzeczywistej struktury repozytorium. Wartości połączenia z bazą danych oraz klucze JWT powinny być konfigurowane lokalnie i nie powinny być umieszczane w publicznym repozytorium.
+[http://localhost:4200](http://localhost:4200)
+
+> Adres backendu i konfiguracja połączenia z bazą muszą odpowiadać lokalnemu środowisku. Powyższe polecenia zakładają, że wymagane usługi są zainstalowane i skonfigurowane.
 
 ---
 
 ## 🗄️ Baza danych
 
-Projekt korzysta z PostgreSQL jako relacyjnej bazy danych. Dostęp do danych realizowany jest za pomocą Entity Framework Core.
+Projekt wykorzystuje PostgreSQL jako relacyjną bazę danych, a komunikacja z bazą realizowana jest za pomocą Entity Framework Core.
 
-Baza przechowuje między innymi informacje o:
+Baza przechowuje informacje dotyczące między innymi:
 
-- użytkownikach;
-- rozgrywkach;
-- uczestnikach rozgrywek;
-- zaproszeniach;
-- duchach i aspektach;
-- scenariuszach;
-- przeciwnikach.
+- użytkowników i ich profili;
+- rozgrywek;
+- uczestników rozgrywek;
+- zaproszeń do rozgrywek;
+- duchów i aspektów;
+- scenariuszy;
+- przeciwników.
 
 Diagram bazy danych znajduje się w pliku `screenshots/Data_base.png`.
 
@@ -263,23 +352,24 @@ Diagram bazy danych znajduje się w pliku `screenshots/Data_base.png`.
 
 ## 🔮 Możliwości rozwoju
 
-Projekt można dalej rozwijać o:
+Potencjalne kierunki rozwoju projektu:
 
-- synchronizację zmian w rozgrywce w czasie rzeczywistym;
-- rozbudowane statystyki i wykresy;
-- historię aktywności użytkowników;
+- synchronizacja zmian w rozgrywkach w czasie rzeczywistym;
+- rozszerzone statystyki i wykresy;
+- historia aktywności użytkowników;
 - powiadomienia o nowych zaproszeniach;
 - filtrowanie i sortowanie historii partii;
-- rozszerzone wyszukiwanie graczy i rozgrywek.
+- rozszerzone wyszukiwanie graczy i rozgrywek;
+- dalsze usprawnienia interfejsu i responsywności.
 
 ---
 
 ## 👩‍💻 Autor
 
-Projekt **Spiritland — Spirit Island Game Tracker**.
+**Spiritland — Spirit Island Game Tracker**
 
-Repozytorium: [github.com/WikaUlazka/SpiritLand](https://github.com/WikaUlazka/SpiritLand)
+Repozytorium projektu: [github.com/WikaUlazka/SpiritLand](https://github.com/WikaUlazka/SpiritLand)
 
 ---
 
-*Projekt tworzony z myślą o graczach Spirit Island, którzy chcą wygodniej zapisywać swoje partie i analizować rozgrywki.*
+*Projekt tworzony z myślą o graczach Spirit Island, którzy chcą wygodniej zapisywać swoje partie, organizować wspólne rozgrywki i analizować wyniki.*
