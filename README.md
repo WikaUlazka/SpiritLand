@@ -250,30 +250,6 @@ Poniższe zrzuty ekranu przedstawiają najważniejsze widoki aplikacji Spiritlan
 Aplikacja wykorzystuje architekturę klient–serwer. Frontend komunikuje się z backendem za pomocą żądań HTTP. Backend realizuje logikę aplikacji i obsługuje dostęp do danych za pośrednictwem Entity Framework Core.
 
 ---
-
-## 📁 Struktura projektu
-
-Główne elementy projektu:
-
-```text
-SpiritLand/
-├── screenshots/          # Zrzuty ekranu do README
-├── src/
-│   └── app/              # Komponenty aplikacji Angular
-│       ├── auth/         # Logowanie i rejestracja
-│       ├── games/        # Lista gier, formularze i szczegóły
-│       ├── game-invites/ # Zaproszenia do rozgrywek
-│       ├── home/         # Strona główna
-│       ├── scenarios/    # Widoki scenariuszy
-│       └── ...           # Pozostałe moduły i komponenty
-├── package.json
-└── README.md
-```
-
-> To poglądowy schemat. Dokładna struktura katalogów zależy od bieżącej wersji projektu. Backend może znajdować się w osobnym katalogu.
-
----
-
 ## ⚙️ Wymagania
 
 Przed uruchomieniem projektu przygotuj:
