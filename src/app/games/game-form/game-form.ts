@@ -78,7 +78,11 @@ export class GameForm {
       });
     }
   }
-
+      cancel(): void {
+      console.log('Kliknięto Anuluj');
+      this.router.navigate(['/games']);
+    }
+      
   loadUsers() {
     this.usersService.getUsers().subscribe((u) => {
       this.users = u;
@@ -156,11 +160,43 @@ export class GameForm {
       : this.gamesService.createGame(payload);
 
     req.subscribe({
-      next: () => this.router.navigate(['/games']),
-      error: (err) => {
-        console.error('BACKEND ERROR:', err);
-        alert('Błąd zapisu: ' + JSON.stringify(err.error));
+      next: (result: any) => {
+
+        if (this.gameId) {
+          this.router.navigate(['/games', this.gameId]);
+          return;
+        }
+
+        const newGameId = result.id;
+
+        if (!newGameId) {
+          console.error('Backend nie zwrócił ID nowej gry:', result);
+          alert('Gra została utworzona, ale nie otrzymano jej ID.');
+          this.router.navigate(['/games']);
+          return;
+        }
+
+        this.router.navigate(['/games', newGameId, 'invite']);
       },
+
+      error: (err) => {
+          console.error('Błąd zapisu — cały obiekt:', err);
+          console.error('Status HTTP:', err.status);
+          console.error('Treść odpowiedzi:', err.error);
+          console.error('URL:', err.url);
+
+          const message =
+            typeof err.error === 'string'
+              ? err.error
+              : err.error?.message ||
+                err.error?.title ||
+                JSON.stringify(err.error) ||
+                err.message;
+
+          alert(
+            `Błąd zapisu (HTTP ${err.status}): ${message || err.message}`
+          );
+        },
     });
   }
 }

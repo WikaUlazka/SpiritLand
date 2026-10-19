@@ -1,22 +1,78 @@
-<div class="scenario-details-wrapper">
-  <div *ngIf="loading" class="loading">Ładowanie...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
 
-  <div *ngIf="!loading && scenario" class="scenario-details">
-    <h1 class="scenario-name">{{ scenario.name }}</h1>
+<div class="scenario-details-page">
+  <a routerLink="/scenarios" class="back-link">
+    <span>←</span> Wróć do katalogu scenariuszy
+  </a>
 
-    <div class="scenario-info">
-      <img
-        *ngIf="scenario.imageUrl"
-        class="scenario-main-img"
-        [src]="'http://localhost:5288' + scenario.imageUrl"
-        alt="{{ scenario.name }}"
-      />
-
-      <div class="scenario-description">
-        <p><strong>Trudność:</strong> {{ scenario.difficulty }}</p>
-        <p>{{ scenario.description }}</p>
-      </div>
-    </div>
+  <div *ngIf="loading" class="state-panel">
+    <span class="loader"></span>
+    <p>Ładowanie scenariusza...</p>
   </div>
+
+  <div *ngIf="error && !loading" class="state-panel error-panel">
+    <span class="state-icon">!</span>
+    <h2>Nie udało się załadować scenariusza</h2>
+    <p>{{ error }}</p>
+    <a routerLink="/scenarios" class="primary-btn">Wróć do scenariuszy</a>
+  </div>
+
+  <ng-container *ngIf="!loading && !error && scenario">
+    <header class="scenario-header">
+      <span class="eyebrow">SPIRITLAND · KATALOG SCENARIUSZY</span>
+      <h1 class="scenario-name">{{ scenario.name }}</h1>
+      <p class="scenario-subtitle">
+        Poznaj zasady i przygotuj się na nowe wyzwanie.
+      </p>
+    </header>
+
+    <section class="scenario-layout">
+      <aside class="scenario-sidebar">
+        <div class="scenario-image-wrapper">
+          <img
+            *ngIf="scenario.imageUrl"
+            class="scenario-main-img"
+            [src]="'http://localhost:5288' + scenario.imageUrl"
+            [alt]="scenario.name"
+          />
+
+          <div *ngIf="!scenario.imageUrl" class="image-placeholder">
+            <span>✧</span>
+            <p>Scenariusz</p>
+          </div>
+        </div>
+
+        <div class="difficulty-card">
+          <div class="difficulty-icon">✦</div>
+          <div class="difficulty-info">
+            <span>Poziom trudności</span>
+            <strong>{{ scenario.difficulty ?? 'Nie określono' }}</strong>
+          </div>
+        </div>
+
+        <div class="sidebar-note">
+          <span>✧</span>
+          <p>Przeczytaj zasady przed rozpoczęciem rozgrywki.</p>
+        </div>
+      </aside>
+
+      <article class="scenario-description-card">
+        <div class="description-heading">
+          <span class="description-icon">≡</span>
+          <div>
+            <span class="eyebrow">ZASADY ROZGRYWKI</span>
+            <h2>Opis scenariusza</h2>
+          </div>
+        </div>
+
+        <div class="description-text">
+          <p>{{ scenario.description || 'Brak opisu tego scenariusza.' }}</p>
+        </div>
+
+        <div class="description-footer">
+          <span class="footer-star">✧</span>
+          <span>Powodzenia w obronie wyspy!</span>
+        </div>
+      </article>
+    </section>
+  </ng-container>
 </div>

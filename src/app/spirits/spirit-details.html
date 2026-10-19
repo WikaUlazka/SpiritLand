@@ -1,37 +1,106 @@
-<div class="spirit-details-wrapper">
-  <div *ngIf="loading" class="loading">Ładowanie...</div>
 
-  <div *ngIf="error" class="error">{{ error }}</div>
+<div class="spirit-details-page">
+  <a routerLink="/spirits" class="back-link">
+    <span>←</span> Wróć do katalogu duchów
+  </a>
 
-  <div *ngIf="!loading && spirit" class="spirit-details">
-    <h1 class="spirit-name">{{ spirit.name }}</h1>
+  <div *ngIf="loading" class="state-panel">
+    <span class="loader"></span>
+    <p>Odkrywanie ducha...</p>
+  </div>
 
-    <div class="spirit-info">
-      <img
-        *ngIf="spirit.imageUrl"
-        class="spirit-main-img"
-        [src]="'http://localhost:5288' + spirit.imageUrl"
-        alt="{{ spirit.name }}"
-      />
+  <div *ngIf="error && !loading" class="state-panel error-panel">
+    <span class="state-icon">!</span>
+    <h2>Nie udało się otworzyć ducha</h2>
+    <p>{{ error }}</p>
+    <a routerLink="/spirits" class="primary-btn">Wróć do duchów</a>
+  </div>
+
+  <ng-container *ngIf="!loading && !error && spirit">
+    <section class="spirit-hero">
+      <div class="hero-image-wrapper">
+        <img
+          *ngIf="spirit.imageUrl"
+          class="spirit-main-img"
+          [src]="'http://localhost:5288' + spirit.imageUrl"
+          [alt]="spirit.name"
+        />
+
+        <div *ngIf="!spirit.imageUrl" class="image-placeholder">
+          <span>✦</span>
+          <p>Duch wyspy</p>
+        </div>
+      </div>
 
       <div class="spirit-description">
-        <p><strong>Złożoność:</strong> {{ spirit.complexity }}</p>
-        <p>{{ spirit.description }}</p>
-      </div>
-    </div>
+        <span class="eyebrow">SPIRITLAND · KATALOG DUCHÓW</span>
+        <h1 class="spirit-name">{{ spirit.name }}</h1>
 
-    <h2 class="aspects-title">Aspekty</h2>
+        <div class="complexity-panel">
+          <span class="complexity-icon">✦</span>
+          <div>
+            <span class="detail-label">Złożoność ducha</span>
+            <strong>{{ spirit.complexity || 'Nie określono' }}</strong>
+          </div>
+        </div>
 
-    <div class="aspects-container">
-      <div *ngFor="let a of aspects" class="aspect-card">
-        <img
-          *ngIf="a.imageUrl"
-          class="aspect-img"
-          [src]="'http://localhost:5288' + a.imageUrl"
-          alt="{{ a.name }}"
-        />
-        <h3 class="aspect-title">{{ a.name }}</h3>
+        <div class="description-content">
+          <h2>O duchu</h2>
+          <p>{{ spirit.description || 'Brak opisu tego ducha.' }}</p>
+        </div>
+
+        <div class="hero-note">
+          <span>✧</span>
+          Poznaj aspekty i odkryj inne sposoby gry tym duchem.
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
+
+    <section class="aspects-section">
+      <header class="section-header">
+        <div>
+          <span class="eyebrow">ALTERNATYWNE STYLE GRY</span>
+          <h2>Aspekty ducha</h2>
+          <p>
+            Odkryj odmienne oblicza ducha i dopasuj jego styl do swojej strategii.
+          </p>
+        </div>
+
+        <div class="aspect-count">
+          <strong>{{ aspects.length }}</strong>
+          <span>{{ aspects.length === 1 ? 'aspekt' : 'aspektów' }}</span>
+        </div>
+      </header>
+
+      <div *ngIf="aspects.length > 0" class="aspects-container">
+        <article *ngFor="let a of aspects" class="aspect-card">
+          <div class="aspect-image-wrapper">
+            <img
+              *ngIf="a.imageUrl"
+              class="aspect-img"
+              [src]="'http://localhost:5288' + a.imageUrl"
+              [alt]="a.name"
+              loading="lazy"
+            />
+
+            <div *ngIf="!a.imageUrl" class="aspect-placeholder">
+              <span>✦</span>
+              <p>Aspekt ducha</p>
+            </div>
+          </div>
+
+          <div class="aspect-card-content">
+            <span class="aspect-label">ASPEKT</span>
+            <h3 class="aspect-title">{{ a.name }}</h3>
+          </div>
+        </article>
+      </div>
+
+      <div *ngIf="aspects.length === 0" class="empty-aspects">
+        <span class="empty-icon">✧</span>
+        <h3>Brak dostępnych aspektów</h3>
+        <p>Ten duch nie ma jeszcze przypisanych aspektów.</p>
+      </div>
+    </section>
+  </ng-container>
 </div>

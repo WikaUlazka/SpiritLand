@@ -1,31 +1,136 @@
+
 <div class="home">
   <ng-container *ngIf="!user; else loggedIn">
-    <h1 class="logo">Spiritland 🎲</h1>
-    <p class="subtitle">Zarządzaj rozgrywkami, statystykami i duchami Spirit Island.</p>
+    <section class="welcome-panel guest-panel">
+      <div class="welcome-icon">🎲</div>
+      <span class="eyebrow">TWOJA PRZYGODA Z SPIRIT ISLAND</span>
+      <h1 class="logo">Witaj w <span>Spiritland</span></h1>
+      <p class="subtitle">
+        Odkrywaj duchy, poznawaj przeciwników i przygotuj się
+        na kolejne emocjonujące rozgrywki.
+      </p>
 
-    <div class="tiles">
-      <a routerLink="/spirits" class="tile">🌀 Duchy</a>
-      <a routerLink="/scenarios" class="tile">📜 Scenariusze</a>
-      <a routerLink="/adversaries" class="tile">👹 Przeciwnicy</a>
-      <a routerLink="/ranking" class="tile">🏆 Ranking</a>
-    </div>
+      <div class="tiles">
+        <a routerLink="/spirits" class="tile">
+          <span class="tile-icon">🌀</span>
+          <span class="tile-text">
+            <strong>Duchy</strong>
+            <small>Odkrywaj moce i aspekty</small>
+          </span>
+          <span class="tile-arrow">↗</span>
+        </a>
 
-    <div class="auth-actions">
-      <a routerLink="/login" class="btn">Logowanie</a>
-      <a routerLink="/register" class="btn btn-secondary">Rejestracja</a>
-    </div>
+        <a routerLink="/scenarios" class="tile">
+          <span class="tile-icon">📜</span>
+          <span class="tile-text">
+            <strong>Scenariusze</strong>
+            <small>Odkrywaj nowe wyzwania</small>
+          </span>
+          <span class="tile-arrow">↗</span>
+        </a>
+
+        <a routerLink="/adversaries" class="tile">
+          <span class="tile-icon">👹</span>
+          <span class="tile-text">
+            <strong>Przeciwnicy</strong>
+            <small>Poznaj ich zasady</small>
+          </span>
+          <span class="tile-arrow">↗</span>
+        </a>
+      </div>
+
+      <div class="guest-footer">
+        <div>
+          <strong>Gotowy do gry?</strong>
+          <p>Załóż konto i zapisuj swoje rozgrywki.</p>
+        </div>
+        <div class="auth-actions">
+          <a routerLink="/login" class="btn">Zaloguj się</a>
+          <a routerLink="/register" class="btn btn-secondary">Utwórz konto</a>
+        </div>
+      </div>
+    </section>
   </ng-container>
 
   <ng-template #loggedIn>
-    <h1 class="logo">👋 Witaj, {{ user.username }}!</h1>
-    <p class="subtitle">Gotowy na kolejną przygodę?</p>
+    <section class="welcome-panel logged-panel">
+      <div class="logged-heading">
+        <div class="welcome-icon">🎲</div>
+        <div>
+          <span class="eyebrow">TWOJE CENTRUM ROZGRYWEK</span>
+          <h1 class="logo">Witaj, <span>{{ user.username }}</span>!</h1>
+          <p class="subtitle">Gotowy na kolejną przygodę?</p>
+        </div>
+      </div>
 
-    <div class="tiles">
-      <a routerLink="/games" class="tile">🎮 Moje gry</a>
-      <a routerLink="/games/new" class="tile">➕ Nowa gra</a>
-      <a routerLink="/stats" class="tile">📊 Statystyki</a>
-      <a routerLink="/users" class="tile">👤 Profil</a>
-      <button class="tile logout" (click)="logout()">🚪 Wyloguj</button>
-    </div>
+      <div class="welcome-divider"></div>
+
+      <div class="section-heading">
+        <div>
+          <h2>Co dziś robimy?</h2>
+          <p>Wybierz, od czego chcesz zacząć.</p>
+        </div>
+        <span class="section-decoration">✦</span>
+      </div>
+
+      <div class="tiles">
+        <a routerLink="/games" class="tile">
+          <span class="tile-icon">🎮</span>
+          <span class="tile-text">
+            <strong>Moje gry</strong>
+            <small>Przeglądaj swoje partie</small>
+          </span>
+          <span class="tile-arrow">↗</span>
+        </a>
+
+        <a routerLink="/games/new" class="tile featured-tile">
+          <span class="tile-icon">✨</span>
+          <span class="tile-text">
+            <strong>Nowa gra</strong>
+            <small>Rozpocznij nową przygodę</small>
+          </span>
+          <span class="tile-arrow">↗</span>
+        </a>
+
+        <a routerLink="/stats" class="tile">
+          <span class="tile-icon">📊</span>
+          <span class="tile-text">
+            <strong>Statystyki</strong>
+            <small>Sprawdź swoje wyniki</small>
+          </span>
+          <span class="tile-arrow">↗</span>
+        </a>
+
+        <a routerLink="/users" class="tile">
+          <span class="tile-icon">👤</span>
+          <span class="tile-text">
+            <strong>Profil</strong>
+            <small>Twoje konto i preferencje</small>
+          </span>
+          <span class="tile-arrow">↗</span>
+        </a>
+      </div>
+
+      <div class="explore-section">
+        <div>
+          <span class="eyebrow">POZNAJ ŚWIAT GRY</span>
+          <h2>Przygotuj się do rozgrywki</h2>
+          <p>Sprawdź dostępne duchy, scenariusze i przeciwników.</p>
+        </div>
+
+        <div class="explore-links">
+          <a routerLink="/spirits">🌀 Duchy</a>
+          <a routerLink="/scenarios">📜 Scenariusze</a>
+          <a routerLink="/adversaries">👹 Przeciwnicy</a>
+        </div>
+      </div>
+
+      <div class="logout-row">
+        <span>Miłej rozgrywki! ✨</span>
+        <button type="button" class="logout-btn" (click)="logout()">
+          <span>↪</span> Wyloguj się
+        </button>
+      </div>
+    </section>
   </ng-template>
 </div>

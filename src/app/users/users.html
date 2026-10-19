@@ -1,17 +1,114 @@
-<div class="profile-container">
-  <h2>Profil użytkownika</h2>
 
-  <div *ngIf="loading">Ładowanie...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
+<div class="profile-page">
+  <header class="profile-heading">
+    <div class="profile-icon">🎲</div>
+    <p class="eyebrow">SPIRITLAND · TWOJE KONTO</p>
+    <h1>Twój profil</h1>
+    <p class="profile-subtitle">
+      Twoje dane i ulubione elementy świata Spirit Island.
+    </p>
+  </header>
 
-  <div *ngIf="!loading && user" class="profile-card">
-    <p><strong>Nazwa:</strong> {{ user.username }}</p>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    <p><strong>Data rejestracji:</strong> {{ user.createdAt | date }}</p>
-
-    <p><strong>Ulubiony duch:</strong> {{ favoriteSpiritName }}</p>
-    <p><strong>Ulubiony aspekt:</strong> {{ favoriteAspectName }}</p>
-
-    <a routerLink="/users/edit" class="edit-btn">Edytuj profil</a>
+  <div *ngIf="loading" class="state-card">
+    <span class="loader"></span>
+    <p>Ładowanie profilu...</p>
   </div>
+
+  <div *ngIf="error && !loading" class="error-card">
+    <span class="state-icon">!</span>
+    <div>
+      <h3>Nie udało się wczytać profilu</h3>
+      <p>{{ error }}</p>
+      <button type="button" class="secondary-btn" (click)="loadProfile()">
+        Spróbuj ponownie
+      </button>
+    </div>
+  </div>
+
+  <section *ngIf="!loading && !error && user" class="profile-card">
+    <div class="profile-card-header">
+      <div class="avatar">
+        {{ (user.username || '?').charAt(0).toUpperCase() }}
+      </div>
+
+      <div class="identity">
+        <h2>{{ user.username }}</h2>
+        <p>Gracz Spiritland</p>
+      </div>
+
+      <span class="status-badge">
+        <span class="status-dot"></span>
+        Konto aktywne
+      </span>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h3 class="section-title">Informacje o koncie</h3>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-icon">👤</span>
+        <div>
+          <span class="info-label">Nazwa użytkownika</span>
+          <p>{{ user.username || '—' }}</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">✉️</span>
+        <div>
+          <span class="info-label">Adres e-mail</span>
+          <p>{{ user.email || '—' }}</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <span class="info-icon">📅</span>
+        <div>
+          <span class="info-label">Data rejestracji</span>
+          <p>
+            {{ user.createdAt ? (user.createdAt | date:'d MMMM y') : '—' }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <h3 class="section-title">Twoje ulubione</h3>
+
+    <div class="favorites-grid">
+      <div class="favorite-card spirit-favorite">
+        <div class="favorite-icon">🌿</div>
+        <div>
+          <span class="info-label">Ulubiony duch</span>
+          <p>{{ favoriteSpiritName || '—' }}</p>
+        </div>
+      </div>
+
+      <div class="favorite-card aspect-favorite">
+        <div class="favorite-icon">✨</div>
+        <div>
+          <span class="info-label">Ulubiony aspekt</span>
+          <p>{{ favoriteAspectName || '—' }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-actions">
+      <button
+        type="button"
+        class="edit-btn"
+        routerLink="/users/edit"
+      >
+        <span>✎</span>
+        Edytuj profil
+      </button>
+    </div>
+  </section>
+
+  <p class="profile-footer">
+    Każda wyspa ma swoją historię. Niech Twoja będzie legendarna.
+  </p>
 </div>

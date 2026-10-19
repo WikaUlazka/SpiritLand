@@ -1,0 +1,47 @@
+<div style="padding: 40px; color: black; background: white; min-height: 100vh;">
+
+  <h1>ZAPRASZANIE GRACZY</h1>
+
+  <p>Game ID: {{ gameId }}</p>
+
+  <p>Liczba użytkowników: {{ users.length }}</p>
+
+  <hr>
+
+  <div *ngFor="let user of users">
+
+    <label>
+      <input
+        type="checkbox"
+        [checked]="isSelected(user.id)"
+        (change)="toggleUser(user.id)"
+      >
+
+      {{ user.username }}
+
+    </label>
+
+  </div>
+
+  <hr>
+
+  <p>
+    Wybrano: {{ selectedUserIds.length }}
+  </p>
+
+  <button
+    type="button"
+    (click)="invitePlayers()"
+    [disabled]="selectedUserIds.length === 0"
+  >
+    ZAPROŚ WYBRANYCH
+  </button>
+
+  <button
+    type="button"
+    (click)="skipInviting()"
+  >
+    PRZEJDŹ DALEJ
+  </button>
+
+</div>

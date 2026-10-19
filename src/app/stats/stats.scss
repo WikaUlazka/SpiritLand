@@ -1,3 +1,309 @@
-h1 {
+.stats-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* HEADER */
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+
+  h1 {
+    margin: 0;
+    font-size: 2.4rem;
+    color: #4a47a3;
+  }
+
+  p {
+    margin-top: 0.5rem;
+    color: #666;
+    font-size: 1.1rem;
+  }
+}
+
+
+/* SUMMARY */
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.summary-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  background: white;
+  border-radius: 1rem;
+  padding: 1.3rem;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+  .summary-icon {
+    font-size: 2rem;
+  }
+
+  .summary-label {
+    display: block;
+    color: #777;
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+
+  strong {
+    font-size: 1.8rem;
+    color: #4a47a3;
+  }
+
+  &.win strong {
+    color: #3c9b5f;
+  }
+
+  &.loss strong {
+    color: #d9534f;
+  }
+}
+
+
+/* SECTIONS */
+
+.chart-section,
+.table-section {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 1.5rem;
+
+  h2 {
+    margin: 0;
+    color: #333;
+  }
+
+  span {
+    color: #777;
+    font-size: 0.9rem;
+  }
+}
+
+
+/* BAR CHART */
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 230px 1fr;
+  align-items: center;
+  gap: 1rem;
+}
+
+.spirit-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.spirit-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.spirit-games {
+  color: #888;
+  font-size: 0.85rem;
+  margin-top: 0.2rem;
+}
+
+.bar-container {
+  height: 32px;
+  background: #eeeeF7;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  min-width: 35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  padding-right: 0.7rem;
+  box-sizing: border-box;
+
+  background: #4a47a3;
+  border-radius: 1rem;
+
+  color: white;
+  font-weight: 600;
+
+  transition: width 0.5s ease;
+}
+
+
+/* TABLE */
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  padding: 0.9rem;
+
+  color: #666;
+  font-size: 0.9rem;
+
+  border-bottom: 2px solid #eee;
+}
+
+td {
+  padding: 1rem 0.9rem;
+  border-bottom: 1px solid #eee;
+}
+
+.spirit-cell {
+  font-weight: 600;
   color: #4a47a3;
+}
+
+.wins {
+  color: #3c9b5f;
+  font-weight: 600;
+}
+
+.losses {
+  color: #d9534f;
+  font-weight: 600;
+}
+
+
+/* WIN RATE */
+
+.win-rate {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+
+  min-width: 130px;
+}
+
+.rate-bar {
+  flex: 1;
+  height: 8px;
+
+  background: #eee;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.rate-fill {
+  height: 100%;
+  background: #3c9b5f;
+  border-radius: 1rem;
+
+  transition: width 0.5s ease;
+}
+
+.win-rate span {
+  min-width: 40px;
+  font-weight: 600;
+}
+
+
+/* LOADING */
+
+.loading {
+  text-align: center;
+  padding: 4rem;
+  color: #666;
+}
+
+
+/* ERROR */
+
+.error {
+  padding: 1rem;
+  background: #fdeaea;
+  color: #b83f3b;
+
+  border-radius: 0.8rem;
+  text-align: center;
+}
+
+
+/* EMPTY */
+
+.empty {
+  text-align: center;
+  padding: 5rem 2rem;
+
+  background: white;
+  border-radius: 1rem;
+
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+  .empty-icon {
+    font-size: 3rem;
+  }
+
+  h2 {
+    color: #444;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: #777;
+  }
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .stats-page {
+    padding: 1rem;
+  }
+
+  .summary {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-row {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .bar-container {
+    height: 28px;
+  }
+
+  table {
+    min-width: 650px;
+  }
 }

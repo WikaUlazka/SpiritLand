@@ -1,227 +1,424 @@
+:host {
+  display: block;
+  color: #25233a;
+}
+
 .game-form-wrapper {
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
+  min-height: 100%;
+  padding: 36px 20px 56px;
+  background:
+    radial-gradient(ellipse at top left, rgba(109, 77, 205, 0.08), transparent 42%),
+    #f6f5fb;
 }
 
 .game-form-card {
   width: 100%;
-  max-width: 650px;
-  padding: 2rem;
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.35s ease;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 36px;
+  background: #fff;
+  border: 1px solid #e9e6f3;
+  border-radius: 22px;
+  box-shadow: 0 14px 44px rgba(44, 31, 87, 0.08);
 }
 
-h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-  font-weight: 700;
-  text-align: center;
-  color: #333;
+.form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #eeebf5;
 }
 
-h3 {
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #444;
-  border-bottom: 2px solid #eee;
-  padding-bottom: 4px;
+.eyebrow {
+  margin: 0 0 8px;
+  color: #7052c8;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.form-header h1 {
+  margin: 0;
+  color: #29243d;
+  font-size: clamp(1.7rem, 4vw, 2.35rem);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+}
+
+.form-description {
+  margin: 10px 0 0;
+  color: #77738b;
+  line-height: 1.6;
+}
+
+.form-icon {
+  display: grid;
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border-radius: 18px;
+  background: #f0ebff;
+  font-size: 2rem;
+}
+
+.form-section {
+  padding: 30px 0;
+  border-bottom: 1px solid #eeebf5;
+}
+
+.form-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px;
+  color: #302a48;
+  font-size: 1.18rem;
+  font-weight: 750;
+}
+
+.section-number {
+  display: grid;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 11px;
+  background: #f0ebff;
+  color: #6d4bc5;
+  font-size: 0.82rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 19px;
 }
 
 .form-group {
   display: flex;
+  min-width: 0;
   flex-direction: column;
-  margin-bottom: 1rem;
+  gap: 8px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
 }
 
 .form-group label {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #444;
+  color: #514c65;
+  font-size: 0.88rem;
+  font-weight: 700;
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-  padding: 0.7rem;
-  border: 1px solid #cfcfee;
-  border-radius: 10px;
-  font-size: 1rem;
-  background: white;
-  transition: 0.2s ease;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #ded9eb;
+  border-radius: 11px;
+  outline: none;
+  background: #fff;
+  color: #302a48;
+  font: inherit;
+  font-size: 0.94rem;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.form-group textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #aaa5ba;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  outline: none;
-  border-color: #6a67ce;
-  box-shadow: 0 0 6px rgba(106, 103, 206, 0.3);
+  border-color: #8062d4;
+  box-shadow: 0 0 0 3px rgba(128, 98, 212, 0.13);
 }
 
-.checkbox-group {
-  margin-bottom: 1rem;
-}
-
-.checkbox-group label {
+.blight-option {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-  color: #444;
+  gap: 13px;
+  margin-top: 22px;
+  padding: 16px;
+  border: 1px solid #e7e1f4;
+  border-radius: 13px;
+  background: #faf8ff;
+  cursor: pointer;
+}
+
+.blight-option input {
+  width: 18px;
+  height: 18px;
+  accent-color: #7252c7;
+}
+
+.blight-option span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.blight-option strong {
+  color: #39324f;
+  font-size: 0.92rem;
+}
+
+.blight-option small {
+  color: #827b96;
+  font-size: 0.82rem;
+}
+
+.section-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.section-heading-row h2 {
+  margin-bottom: 8px;
+}
+
+.section-description {
+  margin: 0;
+  color: #827b96;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.player-count {
+  flex-shrink: 0;
+  padding: 7px 12px;
+  border-radius: 20px;
+  background: #f0ebff;
+  color: #6746bd;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.empty-players {
+  padding: 30px 20px;
+  text-align: center;
+  border: 1px dashed #d8d0ec;
+  border-radius: 15px;
+  background: #fbfaff;
+}
+
+.empty-icon {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 2rem;
+}
+
+.empty-players h3 {
+  margin: 0 0 8px;
+  color: #3c3555;
+  font-size: 1rem;
+}
+
+.empty-players p {
+  max-width: 450px;
+  margin: 0 auto;
+  color: #827b96;
+  font-size: 0.88rem;
+  line-height: 1.6;
 }
 
 .player-card {
-  background: #f8f8ff;
-  padding: 1.2rem;
-  margin-bottom: 1rem;
-  border-radius: 14px;
-  border: 1px solid #dcdcff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-  animation: fadeInUp 0.25s ease;
+  margin-bottom: 16px;
+  padding: 22px;
+  border: 1px solid #e6e1f2;
+  border-radius: 16px;
+  background: #fcfbff;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
-.player-header {
+.player-card:focus-within {
+  border-color: #c6b6ed;
+  box-shadow: 0 5px 20px rgba(83, 57, 145, 0.06);
+}
+
+.player-card-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.player-avatar {
+  display: grid;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 13px;
+  background: #eae3ff;
+  color: #6344b4;
+  font-weight: 800;
+}
+
+.player-card-header h3 {
+  margin: 0;
+  color: #39324f;
+  font-size: 1rem;
+}
+
+.player-card-header p {
+  margin: 4px 0 0;
+  color: #8a849e;
+  font-size: 0.8rem;
 }
 
 .remove-btn {
-  border: none;
-  background: #ff4d4d;
-  color: white;
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-size: 0.9rem;
+  width: 36px;
+  height: 36px;
+  margin-left: auto;
+  border: 1px solid #f0dada;
+  border-radius: 10px;
+  background: #fff7f7;
+  color: #c44e57;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: background 0.18s ease;
 }
 
 .remove-btn:hover {
-  background: #d93636;
-}
-
-.form-row {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-.form-row label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: #444;
-}
-
-.form-row select,
-.form-row textarea {
-  padding: 0.7rem;
-  border: 1px solid #c8c8e8;
-  border-radius: 10px;
-  background: white;
-  font-size: 0.95rem;
-  transition: 0.2s ease;
-}
-
-.form-row select:focus,
-.form-row textarea:focus {
-  outline: none;
-  border-color: #6a67ce;
-  box-shadow: 0 0 6px rgba(106, 103, 206, 0.25);
+  background: #ffe8e8;
 }
 
 .add-player-btn {
+  display: flex;
   width: 100%;
-  padding: 1rem;
-  background: #6a67ce;
-  border: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 13px 18px;
+  border: 1px dashed #b7a6e5;
   border-radius: 12px;
-  color: white;
-  font-size: 1.1rem;
-  font-weight: 600;
+  background: #faf8ff;
+  color: #6748b7;
+  font: inherit;
+  font-weight: 750;
   cursor: pointer;
-  margin-top: 1rem;
-  transition: 0.2s ease;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.add-player-btn span {
+  font-size: 1.25rem;
 }
 
 .add-player-btn:hover {
-  background: #5956c7;
+  border-color: #8d71d2;
+  background: #f1ecff;
 }
 
-.button-row {
+.form-actions {
   display: flex;
-  gap: 1rem;
-  margin-top: 2rem;
+  justify-content: flex-end;
+  gap: 12px;
+  padding-top: 28px;
 }
 
-.save-btn,
-.cancel-btn {
-  flex: 1;
-  padding: 1rem;
-  font-size: 1.1rem;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: 0.2s ease;
-  border: none;
-  font-weight: 600;
-}
-
+.cancel-btn,
 .save-btn {
-  background: #4caf50;
-  color: white;
-}
-
-.save-btn:hover {
-  background: #449d48;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 12px 22px;
+  border: 0;
+  border-radius: 12px;
+  font: inherit;
+  font-size: 0.94rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
 }
 
 .cancel-btn {
-  background: #dddddd;
+  background: #f0eef5;
+  color: #514b64;
 }
 
 .cancel-btn:hover {
-  background: #c8c8c8;
+  background: #e6e2ef;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.save-btn {
+  background: #6748bd;
+  color: #fff;
+  box-shadow: 0 5px 14px rgba(103, 72, 189, 0.2);
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.save-btn:hover {
+  transform: translateY(-1px);
+  background: #5638aa;
 }
 
-@media (max-width: 600px) {
+button:focus-visible {
+  outline: 3px solid rgba(128, 98, 212, 0.35);
+  outline-offset: 3px;
+}
+
+@media (max-width: 650px) {
+  .game-form-wrapper {
+    padding: 18px 12px 32px;
+  }
+
   .game-form-card {
-    padding: 1rem;
+    padding: 22px 17px;
+    border-radius: 17px;
   }
 
-  .button-row {
-    flex-direction: column;
+  .form-header {
+    align-items: flex-start;
+  }
+
+  .form-icon {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    font-size: 1.5rem;
+  }
+
+  .form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+
+  .section-heading-row {
+    align-items: flex-start;
+  }
+
+  .player-card {
+    padding: 16px;
+  }
+
+  .form-actions {
+    flex-direction: column-reverse;
+  }
+
+  .form-actions button {
+    width: 100%;
   }
 }

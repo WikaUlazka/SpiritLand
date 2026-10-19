@@ -1,0 +1,346 @@
+:host {
+  display: block;
+}
+
+.invites-wrapper {
+  min-height: 100%;
+  padding: 40px 20px 56px;
+  background:
+    radial-gradient(ellipse at top left, rgba(109, 77, 205, 0.08), transparent 42%),
+    #f6f5fb;
+}
+
+.invites-container {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.invites-header {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.invites-heading-icon {
+  display: grid;
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  place-items: center;
+  border-radius: 19px;
+  background: #eae3ff;
+  color: #6748bd;
+  font-size: 2rem;
+}
+
+.eyebrow {
+  margin: 0 0 7px;
+  color: #7052c8;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.invites-header h1 {
+  margin: 0;
+  color: #29243d;
+  font-size: clamp(1.65rem, 4vw, 2.25rem);
+  letter-spacing: -0.04em;
+}
+
+.invites-subtitle {
+  margin: 9px 0 0;
+  color: #77738b;
+  line-height: 1.6;
+}
+
+.invites-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+  padding: 22px 25px;
+  border: 1px solid #e8e2f5;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 6px 22px rgba(44, 31, 87, 0.04);
+}
+
+.invites-summary>div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.summary-label {
+  color: #77718c;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.summary-count {
+  color: #6748bd;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.summary-icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 14px;
+  background: #f2edff;
+  font-size: 1.5rem;
+}
+
+.invite-list {
+  display: grid;
+  gap: 16px;
+}
+
+.invite-card {
+  padding: 25px;
+  border: 1px solid #e6e1f2;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 26px rgba(44, 31, 87, 0.05);
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.invite-card:hover {
+  transform: translateY(-2px);
+  border-color: #c8b8eb;
+}
+
+.invite-card-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.game-icon {
+  display: grid;
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  border-radius: 15px;
+  background: #f0ebff;
+  font-size: 1.55rem;
+}
+
+.invite-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.invite-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.invite-title-row h2 {
+  margin: 2px 0 0;
+  color: #302a48;
+  font-size: 1.12rem;
+}
+
+.pending-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #fff3dc;
+  color: #97651b;
+  font-size: 0.75rem;
+  font-weight: 750;
+}
+
+.game-reference {
+  margin: 8px 0 0;
+  color: #847d98;
+  font-size: 0.86rem;
+}
+
+.invite-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 23px;
+  padding: 18px;
+  border: 1px solid #eeeaf5;
+  border-radius: 13px;
+  background: #fbfaff;
+}
+
+.detail-item {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.detail-label {
+  color: #89829c;
+  font-size: 0.78rem;
+}
+
+.detail-item strong {
+  overflow-wrap: anywhere;
+  color: #3c3555;
+  font-size: 0.9rem;
+}
+
+.invite-description {
+  margin-top: 17px;
+  color: #77718c;
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.invite-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 11px;
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid #efedf5;
+}
+
+.accept-btn,
+.reject-btn,
+.back-to-games {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 43px;
+  padding: 11px 17px;
+  border: none;
+  border-radius: 11px;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 750;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.accept-btn {
+  background: #6748bd;
+  color: #fff;
+}
+
+.accept-btn:hover {
+  transform: translateY(-1px);
+  background: #5638aa;
+}
+
+.reject-btn {
+  border: 1px solid #e8dfe2;
+  background: #fff;
+  color: #a24755;
+}
+
+.reject-btn:hover {
+  background: #fff1f2;
+}
+
+.state-card {
+  padding: 48px 24px;
+  border: 1px solid #e8e2f5;
+  border-radius: 18px;
+  background: #fff;
+  text-align: center;
+  box-shadow: 0 8px 26px rgba(44, 31, 87, 0.04);
+}
+
+.state-icon {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 2.6rem;
+}
+
+.state-card h2 {
+  margin: 0 0 10px;
+  color: #302a48;
+  font-size: 1.2rem;
+}
+
+.state-card p {
+  max-width: 440px;
+  margin: 0 auto 20px;
+  color: #827b96;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.back-to-games {
+  background: #f0ebff;
+  color: #6748bd;
+}
+
+.back-to-games:hover {
+  background: #e4dcff;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 25px;
+  color: #6c53b1;
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .invites-wrapper {
+    padding: 25px 12px 35px;
+  }
+
+  .invites-heading-icon {
+    flex-basis: 50px;
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 1.6rem;
+  }
+
+  .invites-header {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .invites-summary,
+  .invite-card {
+    padding: 18px;
+  }
+
+  .invite-title-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .invite-details {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .invite-actions {
+    flex-direction: column-reverse;
+  }
+
+  .invite-actions button {
+    width: 100%;
+  }
+}

@@ -1,2 +1,198 @@
-<h1>Statystyki</h1>
-<p>Wkrótce pojawią się wykresy i analizy.</p>
+<div class="stats-page">
+
+  <div class="header">
+    <h1>📊 Statystyki</h1>
+    <p>Twoje wyniki według wybranego Spirita</p>
+  </div>
+
+  <!-- ŁADOWANIE -->
+
+  <div class="loading" *ngIf="loading">
+    Ładowanie statystyk...
+  </div>
+
+  <!-- BŁĄD -->
+
+  <div class="error" *ngIf="!loading && error">
+    {{ error }}
+  </div>
+
+  <!-- BRAK GIER -->
+
+  <div
+    class="empty"
+    *ngIf="!loading && !error && stats.length === 0"
+  >
+    <div class="empty-icon">🎮</div>
+
+    <h2>Brak statystyk</h2>
+
+    <p>
+      Zagraj swoją pierwszą grę, aby zobaczyć tutaj statystyki.
+    </p>
+  </div>
+
+  <!-- STATYSTYKI -->
+
+  <div
+    class="content"
+    *ngIf="!loading && !error && stats.length > 0"
+  >
+
+    <!-- PODSUMOWANIE -->
+
+    <div class="summary">
+
+      <div class="summary-card">
+        <span class="summary-icon">🎮</span>
+
+        <div>
+          <span class="summary-label">Rozegrane</span>
+          <strong>{{ totalGames }}</strong>
+        </div>
+      </div>
+
+      <div class="summary-card win">
+        <span class="summary-icon">🏆</span>
+
+        <div>
+          <span class="summary-label">Wygrane</span>
+          <strong>{{ totalWins }}</strong>
+        </div>
+      </div>
+
+      <div class="summary-card loss">
+        <span class="summary-icon">💀</span>
+
+        <div>
+          <span class="summary-label">Przegrane</span>
+          <strong>{{ totalLosses }}</strong>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- WYKRES -->
+
+    <section class="chart-section">
+
+      <div class="section-header">
+        <h2>Gry według Spirita</h2>
+        <span>{{ totalGames }} gier</span>
+      </div>
+
+      <div class="chart">
+
+        <div
+          class="chart-row"
+          *ngFor="let stat of stats"
+        >
+
+          <div class="spirit-info">
+
+            <span class="spirit-name">
+              {{ stat.spiritName }}
+            </span>
+
+            <span class="spirit-games">
+              {{ stat.played }}
+              {{ stat.played === 1 ? 'gra' : 'gier' }}
+            </span>
+
+          </div>
+
+          <div class="bar-container">
+
+            <div
+              class="bar"
+              [style.width.%]="getBarWidth(stat)"
+            >
+              <span>
+                {{ stat.played }}
+              </span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- TABELA -->
+
+    <section class="table-section">
+
+      <div class="section-header">
+        <h2>Wyniki Spiritów</h2>
+      </div>
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Spirit</th>
+              <th>Gry</th>
+              <th>Wygrane</th>
+              <th>Przegrane</th>
+              <th>Win rate</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let stat of stats">
+
+              <td class="spirit-cell">
+                {{ stat.spiritName }}
+              </td>
+
+              <td>
+                {{ stat.played }}
+              </td>
+
+              <td class="wins">
+                {{ stat.wins }}
+              </td>
+
+              <td class="losses">
+                {{ stat.losses }}
+              </td>
+
+              <td>
+
+                <div class="win-rate">
+
+                  <div class="rate-bar">
+                    <div
+                      class="rate-fill"
+                      [style.width.%]="getWinRate(stat)"
+                    ></div>
+                  </div>
+
+                  <span>
+                    {{ getWinRate(stat) }}%
+                  </span>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </div>
+
+</div>

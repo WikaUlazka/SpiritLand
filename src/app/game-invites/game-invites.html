@@ -1,0 +1,103 @@
+
+<div class="invites-wrapper">
+  <div class="invites-container">
+    <header class="invites-header">
+      <div class="invites-heading-icon">✉</div>
+      <div>
+        <p class="eyebrow">SPIRITLAND / SPOŁECZNOŚĆ</p>
+        <h1>Zaproszenia do gier</h1>
+        <p class="invites-subtitle">
+          Dołącz do rozgrywki i wspólnie zapisujcie jej przebieg.
+        </p>
+      </div>
+    </header>
+
+    <div class="invites-summary">
+      <div>
+        <span class="summary-label">Oczekujące zaproszenia</span>
+        <strong class="summary-count">{{ invites.length }}</strong>
+      </div>
+      <span class="summary-icon">🎲</span>
+    </div>
+
+    <div *ngIf="loading" class="state-card">
+      <span class="state-icon">⏳</span>
+      <h2>Ładowanie zaproszeń</h2>
+      <p>Za chwilę pokażemy zaproszenia do Twoich gier.</p>
+    </div>
+
+    <div *ngIf="!loading && invites.length === 0" class="state-card">
+      <span class="state-icon">📭</span>
+      <h2>Nie masz nowych zaproszeń</h2>
+      <p>
+        Gdy ktoś zaprosi Cię do wspólnej rozgrywki, zobaczysz ją właśnie tutaj.
+      </p>
+      <a routerLink="/games" class="back-to-games">
+        Przejdź do gier
+      </a>
+    </div>
+
+    <div *ngIf="!loading && invites.length > 0" class="invite-list">
+      <article *ngFor="let invite of invites" class="invite-card">
+        <div class="invite-card-top">
+          <div class="game-icon">🎲</div>
+
+          <div class="invite-main">
+            <div class="invite-title-row">
+              <h2>Zaproszenie do rozgrywki</h2>
+              <span class="pending-badge">Oczekuje</span>
+            </div>
+
+            <p class="game-reference">
+              Rozgrywka #{{ invite.gameId }}
+            </p>
+          </div>
+        </div>
+
+        <div class="invite-details">
+          <div class="detail-item">
+            <span class="detail-label">Data rozgrywki</span>
+            <strong>
+              {{ invite.game?.datePlayed
+                ? (invite.game?.datePlayed | date:'dd.MM.yyyy')
+                : 'Nie podano' }}
+            </strong>
+          </div>
+
+          <div class="detail-item">
+            <span class="detail-label">Zapraszający</span>
+            <strong>
+              {{ invite.senderUser?.username || ('Użytkownik #' + invite.senderUserId) }}
+            </strong>
+          </div>
+        </div>
+
+        <div class="invite-description">
+          Po zaakceptowaniu dołączysz do listy uczestników tej rozgrywki.
+        </div>
+
+        <div class="invite-actions">
+          <button
+            type="button"
+            class="reject-btn"
+            (click)="rejectInvite(invite)"
+          >
+            Odrzuć
+          </button>
+
+          <button
+            type="button"
+            class="accept-btn"
+            (click)="acceptInvite(invite)"
+          >
+            <span>✓</span> Akceptuj zaproszenie
+          </button>
+        </div>
+      </article>
+    </div>
+
+    <a routerLink="/games" class="back-link">
+      ← Wróć do listy gier
+    </a>
+  </div>
+</div>

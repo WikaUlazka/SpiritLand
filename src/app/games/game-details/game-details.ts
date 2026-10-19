@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { GamesService } from '../../services/games.service';
 import { GamePlayersService } from '../../services/game-players.service';
@@ -23,81 +23,137 @@ export class GameDetails implements OnInit {
   spirits: any[] = [];
 
   loading = true;
+  error = '';
   userId!: number;
   isHost = false;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private gamesService: GamesService,
     private playersService: GamePlayersService,
     private spiritsService: SpiritsService,
     private auth: AuthService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.gameId = Number(this.route.snapshot.paramMap.get('id'));
     this.userId = this.auth.getCurrentUserId()!;
-    this.loadData();
-  }
 
-  loadData() {
-    this.loading = true;
-
-    this.spiritsService.getSpirits().subscribe((spirits) => {
-      this.spirits = spirits;
-
-      this.gamesService.getGame(this.gameId).subscribe((game) => {
-        this.game = game;
-        this.isHost = game.creatorUserId === this.userId;
-
-        this.playersService.getPlayersForGame(this.gameId).subscribe((players) => {
-          this.players = players;
-
-          this.players.forEach((p) => {
-            if (p.spiritId) {
-              this.spiritsService.getAspectsForSpirit(p.spiritId).subscribe((aspects) => {
-                p.availableAspects = aspects;
-
-                if (!aspects.some((a) => a.id === p.aspectId)) {
-                  p.aspectId = null;
-                }
-              });
-            } else {
-              p.availableAspects = [];
-            }
-          });
-
-          this.loading = false;
-        });
-      });
-    });
-  }
-
-  onSpiritChange(player: any) {
-    if (!player.spiritId) {
-      player.aspectId = null;
-      player.availableAspects = [];
+    if (!Number.isInteger(this.gameId) || this.gameId <= 0) {
+      this.error = 'Nieprawidłowy identyfikator gry.';
+      this.loading = false;
       return;
     }
 
-    this.spiritsService.getAspectsForSpirit(player.spiritId).subscribe((aspects) => {
-      player.availableAspects = aspects;
+    this.loadData();
+  }
 
-      if (!aspects.some((a) => a.id === player.aspectId)) {
-        player.aspectId = null;
-      }
+  goBack(): void {
+    this.router.navigate(['/games']);
+  }
+
+  loadData(): void {
+    this.loading = true;
+    this.error = '';
+
+    this.spiritsService.getSpirits().subscribe({
+      next: (spirits) => {
+        this.spirits = spirits ?? [];
+
+        this.gamesService.getGame(this.gameId).subscribe({
+          next: (game) => {
+            this.game = game;
+            this.isHost = game.creatorUserId === this.userId;
+
+            this.playersService.getPlayersForGame(this.gameId).subscribe({
+              next: (players) => {
+                this.players = players ?? [];
+
+                this.players.forEach((player) => {
+                  player.availableAspects = [];
+
+                  if (player.spiritId) {
+                    this.loadAspectsForPlayer(player);
+                  }
+                });
+
+                this.loading = false;
+              },
+              error: (err) => {
+                console.error('Błąd pobierania graczy:', err);
+                this.error = 'Nie udało się pobrać listy graczy.';
+                this.loading = false;
+              },
+            });
+          },
+          error: (err) => {
+            console.error('Błąd pobierania gry:', err);
+            this.error = 'Nie udało się załadować szczegółów rozgrywki.';
+            this.loading = false;
+          },
+        });
+      },
+      error: (err) => {
+        console.error('Błąd pobierania duchów:', err);
+        this.error = 'Nie udało się pobrać listy duchów.';
+        this.loading = false;
+      },
     });
   }
 
-  savePlayer(player: any) {
+  private loadAspectsForPlayer(player: any): void {
+    if (!player.spiritId) {
+      player.availableAspects = [];
+      player.aspectId = null;
+      return;
+    }
+
+    this.spiritsService.getAspectsForSpirit(player.spiritId).subscribe({
+      next: (aspects) => {
+        player.availableAspects = aspects ?? [];
+
+        if (
+          !player.availableAspects.some(
+            (aspect: any) => aspect.id === player.aspectId
+          )
+        ) {
+          player.aspectId = null;
+        }
+      },
+      error: (err) => {
+        console.error('Błąd pobierania aspektów:', err);
+        player.availableAspects = [];
+      },
+    });
+  }
+
+  onSpiritChange(player: any): void {
+    player.aspectId = null;
+    player.availableAspects = [];
+
+    if (!player.spiritId) {
+      return;
+    }
+
+    this.loadAspectsForPlayer(player);
+  }
+
+  savePlayer(player: any): void {
     this.playersService
       .updatePlayer(player.id, {
-        spiritId: player.spiritId,
-        aspectId: player.aspectId,
-        notes: player.notes,
+        spiritId: player.spiritId || null,
+        aspectId: player.aspectId || null,
+        notes: player.notes || null,
       })
-      .subscribe(() => {
-        alert('Zapisano zmiany!');
+      .subscribe({
+        next: () => {
+          alert('Zapisano zmiany!');
+        },
+        error: (err) => {
+          console.error('Błąd zapisywania gracza:', err);
+          alert('Nie udało się zapisać zmian. Spróbuj ponownie.');
+        },
       });
   }
 }

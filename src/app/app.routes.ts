@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { Stats } from './stats/stats';
+import { GameInvitesComponent } from './game-invites/game-invites';
 
 export const routes: Routes = [
   {
@@ -13,6 +15,16 @@ export const routes: Routes = [
   {
     path: 'register',
     loadComponent: () => import('./auth/register').then((m) => m.Register),
+  },
+
+   {
+    path: 'game-invites',
+    loadComponent: () => import('./game-invites/game-invites').then((m) => m.GameInvitesComponent),
+  },
+
+    {
+    path: 'games/:id/invite',
+    loadComponent: () => import('./game-invites/game-invite-players').then((m) => m.GameInvitePlayersComponent),
   },
 
   {
@@ -65,4 +77,11 @@ export const routes: Routes = [
     path: 'users/edit',
     loadComponent: () => import('./users/user-edit').then((m) => m.UserEdit),
   },
+
+  {
+    path: 'stats',
+    loadComponent: () => import('./stats/stats').then((m) => m.Stats),
+  },
+
+ 
 ];

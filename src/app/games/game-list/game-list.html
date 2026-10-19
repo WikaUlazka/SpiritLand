@@ -1,27 +1,225 @@
-<div class="games-container">
-  <div class="header-row">
-    <h2>Twoje partie</h2>
-    <a routerLink="/games/new" class="new-game-btn">+ Nowa partia</a>
+
+<div class="games-page">
+  <header class="page-header">
+    <div class="heading-copy">
+      <span class="eyebrow">SPIRITLAND · KRONIKA ROZGRYWEK</span>
+      <h1>Twoje rozgrywki</h1>
+      <p>Każda partia to nowa historia Twojej wyspy.</p>
+    </div>
+
+    <a routerLink="/games/new" class="new-game-btn">
+      <span class="plus-icon">+</span>
+      Nowa partia
+    </a>
+  </header>
+
+  <section class="stats-grid" *ngIf="!loading">
+    <article class="stat-card">
+      <div class="stat-icon purple-icon">🎲</div>
+      <div>
+        <span class="stat-label">Wszystkie partie</span>
+        <strong class="stat-value">{{ games.length }}</strong>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon green-icon">✓</div>
+      <div>
+        <span class="stat-label">Wygrane</span>
+        <strong class="stat-value">{{ winsCount }}</strong>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon red-icon">×</div>
+      <div>
+        <span class="stat-label">Przegrane</span>
+        <strong class="stat-value">{{ lossesCount }}</strong>
+      </div>
+    </article>
+
+    <article class="stat-card">
+      <div class="stat-icon gold-icon">✦</div>
+      <div>
+        <span class="stat-label">Skuteczność</span>
+        <strong class="stat-value">{{ winRate }}%</strong>
+      </div>
+    </article>
+  </section>
+
+  <section class="toolbar">
+    <div class="search-box">
+      <span class="search-icon">⌕</span>
+      <input
+        type="search"
+        [(ngModel)]="searchTerm"
+        placeholder="Szukaj po numerze, przeciwniku lub scenariuszu..."
+        aria-label="Szukaj rozgrywek"
+      />
+      <button
+        *ngIf="searchTerm"
+        type="button"
+        class="clear-search"
+        (click)="searchTerm = ''"
+        aria-label="Wyczyść wyszukiwanie"
+      >
+        ×
+      </button>
+    </div>
+
+    <div class="filter-group" aria-label="Filtr wyników">
+      <button
+        type="button"
+        [class.active]="resultFilter === 'all'"
+        (click)="resultFilter = 'all'"
+      >
+        Wszystkie
+      </button>
+      <button
+        type="button"
+        [class.active]="resultFilter === 'win'"
+        (click)="resultFilter = 'win'"
+      >
+        Wygrane
+      </button>
+      <button
+        type="button"
+        [class.active]="resultFilter === 'loss'"
+        (click)="resultFilter = 'loss'"
+      >
+        Przegrane
+      </button>
+    </div>
+  </section>
+
+  <div *ngIf="loading" class="state-card">
+    <span class="loader"></span>
+    <p>Ładowanie Twoich rozgrywek...</p>
   </div>
 
-  <div class="game-list">
-    <div class="game-card" *ngFor="let g of games" (click)="openGame(g.id)">
-      <div class="card-top">
-        <div class="game-id">#{{ g.id }}</div>
+  <div *ngIf="error && !loading" class="state-card error-state">
+    <span class="empty-icon">!</span>
+    <h2>Nie udało się pobrać gier</h2>
+    <p>{{ error }}</p>
+    <button type="button" class="retry-btn" (click)="loadGames()">
+      Spróbuj ponownie
+    </button>
+  </div>
 
-        <span class="result-tag" [ngClass]="g.result">
-          {{ g.result === 'win' ? 'Wygrana' : 'Przegrana' }}
+  <section
+    class="games-grid"
+    *ngIf="!loading && !error && filteredGames.length > 0"
+  >
+    <article
+      class="game-card"
+      *ngFor="let g of filteredGames"
+      (click)="openGame(g.id)"
+      tabindex="0"
+      role="button"
+      [attr.aria-label]="'Otwórz rozgrywkę numer ' + g.id"
+      (keydown.enter)="openGame(g.id)"
+      (keydown.space)="openGame(g.id); $event.preventDefault()"
+    >
+      <div class="card-accent"></div>
+
+      <div class="card-top">
+        <span class="game-number">PARTIA #{{ g.id }}</span>
+
+        <span
+          class="result-tag"
+          [ngClass]="getResultClass(g.result)"
+        >
+          <span class="result-dot"></span>
+          {{ getResultLabel(g.result) }}
         </span>
       </div>
 
-      <div class="card-body">
-        <p><strong>Data:</strong> {{ g.datePlayed | date }}</p>
+      <div class="game-main">
+        <div class="game-emblem">🎲</div>
+        <div class="game-title">
+          <h2>Rozgrywka #{{ g.id }}</h2>
+          <p class="game-date">
+            <span>◷</span>
+            {{ g.datePlayed | date:'d MMM y' }}
+          </p>
+        </div>
       </div>
 
-      <div class="actions">
-        <button class="edit" (click)="editGame(g.id); $event.stopPropagation()">Edytuj</button>
-        <button class="delete" (click)="deleteGame(g.id); $event.stopPropagation()">Usuń</button>
+      <div class="game-details">
+        <div class="detail-item" *ngIf="g.adversaryName">
+          <span class="detail-label">Przeciwnik</span>
+          <span class="detail-value">{{ g.adversaryName }}</span>
+        </div>
+
+        <div class="detail-item" *ngIf="g.scenarioName">
+          <span class="detail-label">Scenariusz</span>
+          <span class="detail-value">{{ g.scenarioName }}</span>
+        </div>
+
+        <div class="detail-item" *ngIf="g.difficulty != null">
+          <span class="detail-label">Trudność</span>
+          <span class="difficulty-value">{{ g.difficulty }}</span>
+        </div>
+
+        <p
+          class="no-details"
+          *ngIf="!g.adversaryName && !g.scenarioName && g.difficulty == null"
+        >
+          Szczegóły dostępne w rozgrywce
+        </p>
       </div>
-    </div>
-  </div>
+
+      <div class="card-actions">
+        <button
+          type="button"
+          class="edit-btn"
+          (click)="editGame(g.id); $event.stopPropagation()"
+        >
+          <span>✎</span>
+          Edytuj
+        </button>
+
+        <button
+          type="button"
+          class="delete-btn"
+          (click)="deleteGame(g.id); $event.stopPropagation()"
+        >
+          <span>×</span>
+          Usuń
+        </button>
+      </div>
+    </article>
+  </section>
+
+  <section
+    class="state-card empty-state"
+    *ngIf="!loading && !error && games.length === 0"
+  >
+    <div class="empty-icon">🎲</div>
+    <h2>Twoja kronika jest jeszcze pusta</h2>
+    <p>Rozpocznij pierwszą rozgrywkę i zapisz historię swojej wyspy.</p>
+    <a routerLink="/games/new" class="new-game-btn">
+      + Utwórz pierwszą partię
+    </a>
+  </section>
+
+  <section
+    class="state-card empty-state"
+    *ngIf="!loading && !error && games.length > 0 && filteredGames.length === 0"
+  >
+    <div class="empty-icon">⌕</div>
+    <h2>Nie znaleziono rozgrywek</h2>
+    <p>Zmień wyszukiwanie albo wybierz inny filtr.</p>
+    <button
+      type="button"
+      class="retry-btn"
+      (click)="clearFilters()"
+    >
+      Wyczyść filtry
+    </button>
+  </section>
+
+  <footer class="list-footer" *ngIf="!loading && !error && games.length > 0">
+    Wyświetlono {{ filteredGames.length }} z {{ games.length }} rozgrywek
+  </footer>
 </div>

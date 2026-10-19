@@ -1,121 +1,239 @@
+
 <div class="game-form-wrapper">
   <div class="game-form-card">
-    <h2>{{ gameId ? 'Edytuj grę' : 'Nowa gra' }}</h2>
+    <header class="form-header">
+      <div>
+        <p class="eyebrow">SPIRITLAND / ROZGRYWKI</p>
+        <h1>{{ gameId ? 'Edytuj rozgrywkę' : 'Nowa rozgrywka' }}</h1>
+        <p class="form-description">
+          Zapisz przebieg gry, ustawienia wyspy i wybranych duchów.
+        </p>
+      </div>
+      <span class="form-icon">🎲</span>
+    </header>
 
-    <div class="form-group">
-      <label>Data gry</label>
-      <input type="date" [(ngModel)]="game.datePlayed" />
-    </div>
+    <section class="form-section">
+      <h2><span class="section-number">01</span> Podstawowe informacje</h2>
 
-    <div class="form-group">
-      <label>Wynik</label>
-      <select [(ngModel)]="game.result">
-        <option value="win">Wygrana</option>
-        <option value="loss">Przegrana</option>
-      </select>
-    </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="datePlayed">Data rozgrywki</label>
+          <input
+            id="datePlayed"
+            type="date"
+            [(ngModel)]="game.datePlayed"
+          />
+        </div>
 
-    <div class="form-group">
-      <label>Przeciwnik</label>
-      <select [(ngModel)]="game.adversaryId">
-        <option [ngValue]="null">— brak —</option>
-        <option *ngFor="let a of adversaries" [ngValue]="a.id">
-          {{ a.name }}
-        </option>
-      </select>
-    </div>
+        <div class="form-group">
+          <label for="result">Wynik</label>
+          <select id="result" [(ngModel)]="game.result">
+            <option value="win">🏆 Wygrana</option>
+            <option value="loss">Przegrana</option>
+          </select>
+        </div>
 
-    <div class="form-group">
-      <label>Poziom przeciwnika</label>
-      <input type="number" [(ngModel)]="game.difficulty" min="0" />
-    </div>
+        <div class="form-group">
+          <label for="adversary">Przeciwnik</label>
+          <select id="adversary" [(ngModel)]="game.adversaryId">
+            <option [ngValue]="null">Bez przeciwnika</option>
+            <option *ngFor="let a of adversaries" [ngValue]="a.id">
+              {{ a.name }}
+            </option>
+          </select>
+        </div>
 
-    <div class="form-group">
-      <label>Scenariusz</label>
-      <select [(ngModel)]="game.scenarioId">
-        <option [ngValue]="null">— brak —</option>
-        <option *ngFor="let s of scenarios" [ngValue]="s.id">
-          {{ s.name }}
-        </option>
-      </select>
-    </div>
+        <div class="form-group">
+          <label for="difficulty">Poziom trudności</label>
+          <input
+            id="difficulty"
+            type="number"
+            [(ngModel)]="game.difficulty"
+            min="0"
+            max="11"
+            placeholder="np. 6"
+          />
+        </div>
 
-    <div class="form-group">
-      <label>Liczba tur</label>
-      <input type="number" [(ngModel)]="game.turns" min="1" />
-    </div>
+        <div class="form-group full-width">
+          <label for="scenario">Scenariusz</label>
+          <select id="scenario" [(ngModel)]="game.scenarioId">
+            <option [ngValue]="null">Bez scenariusza</option>
+            <option *ngFor="let s of scenarios" [ngValue]="s.id">
+              {{ s.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </section>
 
-    <div class="form-group">
-      <label>Układ planszy</label>
-      <input type="text" [(ngModel)]="game.boardSetup" />
-    </div>
+    <section class="form-section">
+      <h2><span class="section-number">02</span> Stan wyspy</h2>
 
-    <div class="checkbox-group">
-      <label>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="turns">Liczba tur</label>
+          <input
+            id="turns"
+            type="number"
+            [(ngModel)]="game.turns"
+            min="1"
+            placeholder="np. 8"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="boardSetup">Układ planszy</label>
+          <input
+            id="boardSetup"
+            type="text"
+            [(ngModel)]="game.boardSetup"
+            placeholder="np. plansze A i B"
+          />
+        </div>
+
+        <div class="form-group full-width">
+          <label for="endReason">Przyczyna zakończenia</label>
+          <input
+            id="endReason"
+            type="text"
+            [(ngModel)]="game.endReason"
+            placeholder="np. poziom strachu III, zniszczenie miasta..."
+          />
+        </div>
+
+        <div class="form-group full-width">
+          <label for="comment">Komentarz do rozgrywki</label>
+          <textarea
+            id="comment"
+            [(ngModel)]="game.comment"
+            rows="4"
+            placeholder="Strategie, ciekawe momenty, wnioski po grze..."
+          ></textarea>
+        </div>
+      </div>
+
+      <label class="blight-option">
         <input type="checkbox" [(ngModel)]="game.blightedIsland" />
-        Skażona wyspa
+        <span class="blight-check"></span>
+        <span>
+          <strong>Skażona wyspa</strong>
+          <small>Wyspa została skażona podczas rozgrywki.</small>
+        </span>
       </label>
-    </div>
+    </section>
 
-    <div class="form-group">
-      <label>Przyczyna zakończenia</label>
-      <input type="text" [(ngModel)]="game.endReason" />
-    </div>
+    <section class="form-section">
+      <div class="section-heading-row">
+        <div>
+          <h2><span class="section-number">03</span> Gracze i duchy</h2>
+          <p class="section-description">
+            Przypisz uczestników, duchy i aspekty do rozgrywki.
+          </p>
+        </div>
 
-    <div class="form-group">
-      <label>Komentarz</label>
-      <textarea [(ngModel)]="game.comment"></textarea>
-    </div>
-
-    <h3>Gracze</h3>
-
-    <div *ngFor="let p of game.players; let i = index" class="player-card">
-      <div class="player-header">
-        <span>Gracz {{ i + 1 }}</span>
-        <button class="remove-btn" (click)="removePlayer(i)">✕</button>
+        <span class="player-count">
+          {{ game.players.length }}
+          {{ game.players.length === 1 ? 'gracz' :
+             (game.players.length > 1 && game.players.length < 5 ? 'graczy' : 'graczy') }}
+        </span>
       </div>
 
-      <div class="form-row">
-        <label>Użytkownik</label>
-        <select [(ngModel)]="p.userId">
-          <option [ngValue]="null">— wybierz użytkownika —</option>
-          <option *ngFor="let u of users" [ngValue]="u.id">
-            {{ u.username }}
-          </option>
-        </select>
+      <div *ngIf="game.players.length === 0" class="empty-players">
+        <span class="empty-icon">👥</span>
+        <h3>Brak przypisanych graczy</h3>
+        <p>
+          Możesz dodać uczestnika albo najpierw utworzyć grę i zaprosić
+          innych użytkowników.
+        </p>
       </div>
 
-      <div class="form-row">
-        <label>Duch</label>
-        <select [(ngModel)]="p.spiritId" (change)="onSpiritSelected(i)">
-          <option [ngValue]="null">— wybierz ducha —</option>
-          <option *ngFor="let s of spirits" [ngValue]="s.id">
-            {{ s.name }}
-          </option>
-        </select>
+      <div
+        *ngFor="let p of game.players; let i = index"
+        class="player-card"
+      >
+        <div class="player-card-header">
+          <div class="player-avatar">{{ i + 1 }}</div>
+          <div>
+            <h3>Gracz {{ i + 1 }}</h3>
+            <p>Użytkownik i wybór ducha</p>
+          </div>
+          <button
+            type="button"
+            class="remove-btn"
+            (click)="removePlayer(i)"
+            aria-label="Usuń gracza"
+            title="Usuń gracza"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group full-width">
+            <label [for]="'player-user-' + i">Użytkownik</label>
+            <select [id]="'player-user-' + i" [(ngModel)]="p.userId">
+              <option [ngValue]="null">Wybierz użytkownika</option>
+              <option *ngFor="let u of users" [ngValue]="u.id">
+                {{ u.username }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label [for]="'player-spirit-' + i">Duch</label>
+            <select
+              [id]="'player-spirit-' + i"
+              [(ngModel)]="p.spiritId"
+              (change)="onSpiritSelected(i)"
+            >
+              <option [ngValue]="null">Wybierz ducha</option>
+              <option *ngFor="let s of spirits" [ngValue]="s.id">
+                {{ s.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label [for]="'player-aspect-' + i">Aspekt</label>
+            <select [id]="'player-aspect-' + i" [(ngModel)]="p.aspectId">
+              <option [ngValue]="null">Bez aspektu</option>
+              <option *ngFor="let a of aspects" [ngValue]="a.id">
+                {{ a.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group full-width">
+            <label [for]="'player-notes-' + i">Notatki gracza</label>
+            <textarea
+              [id]="'player-notes-' + i"
+              [(ngModel)]="p.notes"
+              rows="2"
+              placeholder="Dodatkowe informacje..."
+            ></textarea>
+          </div>
+        </div>
       </div>
 
-      <div class="form-row">
-        <label>Aspekt</label>
-        <select [(ngModel)]="p.aspectId">
-          <option [ngValue]="null">— brak —</option>
-          <option *ngFor="let a of aspects" [ngValue]="a.id">
-            {{ a.name }}
-          </option>
-        </select>
-      </div>
+      <button type="button" class="add-player-btn" (click)="addPlayer()">
+        <span>＋</span> Dodaj gracza
+      </button>
+    </section>
 
-      <div class="form-row">
-        <label>Notatki</label>
-        <textarea [(ngModel)]="p.notes" rows="2"></textarea>
-      </div>
-    </div>
+    <footer class="form-actions">
+      <button
+        type="button"
+        class="cancel-btn"
+        (click)="cancel()"
+      >
+        Anuluj
+      </button>
 
-    <button class="add-player-btn" (click)="addPlayer()">+ Dodaj gracza</button>
-
-    <div class="button-row">
-      <button class="save-btn" (click)="save()">Zapisz</button>
-      <button class="cancel-btn" routerLink="/games">Anuluj</button>
-    </div>
+      <button type="button" class="save-btn" (click)="save()">
+        <span>✓</span>
+        {{ gameId ? 'Zapisz zmiany' : 'Utwórz rozgrywkę' }}
+      </button>
+    </footer>
   </div>
 </div>

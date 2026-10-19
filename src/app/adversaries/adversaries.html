@@ -1,27 +1,161 @@
+
 <div class="adversaries-container">
-  <h2 class="title">Lista Przeciwników</h2>
+  <header class="page-header">
+    <span class="eyebrow">SPIRITLAND · BAZA WIEDZY</span>
+    <h1 class="title">Przeciwnicy</h1>
+    <p class="page-subtitle">
+      Poznaj poziomy trudności i zasady przeciwników.
+      Kliknij grafikę, aby zobaczyć ją w większym rozmiarze.
+    </p>
+  </header>
 
-  <div *ngIf="loading" class="info">Ładowanie...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <div class="search-wrapper">
+    <span class="search-icon">⌕</span>
+    <input
+      type="text"
+      class="search-input"
+      placeholder="Szukaj przeciwnika..."
+      [(ngModel)]="searchTerm"
+    />
+    <button
+      *ngIf="searchTerm"
+      type="button"
+      class="clear-search"
+      aria-label="Wyczyść wyszukiwanie"
+      (click)="searchTerm = ''"
+    >
+      ×
+    </button>
+  </div>
 
-  <div *ngIf="!loading && adversaries.length === 0" class="info">Brak przeciwników w bazie.</div>
+  <div class="results-info" *ngIf="!loading && !error">
+    Znaleziono przeciwników: <strong>{{ filteredAdversaries.length }}</strong>
+  </div>
 
-  <div class="adversaries-grid">
-    <div *ngFor="let a of adversaries" class="adversary-card">
-      <div class="adversary-image-wrapper">
-        <img
-          *ngIf="a.imageUrl"
-          [src]="'http://localhost:5288' + a.imageUrl"
-          alt="{{ a.name }}"
-          class="adversary-img"
-        />
+  <div *ngIf="loading" class="state-panel">
+    <span class="loader"></span>
+    <p>Ładowanie przeciwników...</p>
+  </div>
 
-        <div *ngIf="!a.imageUrl" class="adversary-placeholder"></div>
-      </div>
+  <div *ngIf="error && !loading" class="state-panel error-panel">
+    <h2>Nie udało się załadować przeciwników</h2>
+    <p>{{ error }}</p>
+  </div>
+
+  <div
+    *ngIf="!loading && !error && filteredAdversaries.length === 0"
+    class="state-panel"
+  >
+    <h2>Nie znaleziono przeciwników</h2>
+    <p>Spróbuj wpisać inną nazwę.</p>
+  </div>
+
+  <div class="adversaries-grid" *ngIf="!loading && !error">
+    <article
+      *ngFor="let a of filteredAdversaries"
+      class="adversary-card"
+    >
+      <button
+        type="button"
+        class="image-button"
+        (click)="openPreview(a)"
+        [attr.aria-label]="'Powiększ grafikę: ' + a.name"
+      >
+        <div class="adversary-image-wrapper">
+          <img
+            *ngIf="a.imageUrl"
+            [src]="'http://localhost:5288' + a.imageUrl"
+            [alt]="'Grafika przeciwnika: ' + a.name"
+            class="adversary-img"
+            loading="lazy"
+          />
+
+          <div *ngIf="!a.imageUrl" class="adversary-placeholder">
+            <span>✧</span>
+            <span>Brak grafiki</span>
+          </div>
+
+          <span class="zoom-hint">⌕ Powiększ grafikę</span>
+        </div>
+      </button>
 
       <div class="adversary-content">
-        <h3>{{ a.name }}</h3>
+        <span class="card-label">PRZECIWNIK</span>
+        <h2>{{ a.name }}</h2>
+
+        <button
+          type="button"
+          class="details-button"
+          (click)="openPreview(a)"
+        >
+          Zobacz grafikę <span>↗</span>
+        </button>
       </div>
-    </div>
+    </article>
+  </div>
+
+  <!-- Okno podglądu grafiki -->
+  <div
+    *ngIf="selectedAdversary"
+    class="preview-backdrop"
+    (click)="closePreview()"
+    (keydown.escape)="closePreview()"
+  >
+    <section
+      class="preview-modal"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="'Podgląd: ' + selectedAdversary.name"
+      (click)="$event.stopPropagation()"
+    >
+      <header class="preview-header">
+        <div>
+          <span class="eyebrow">KARTA PRZECIWNIKA</span>
+          <h2>{{ selectedAdversary.name }}</h2>
+        </div>
+
+        <button
+          type="button"
+          class="close-button"
+          aria-label="Zamknij podgląd"
+          (click)="closePreview()"
+        >
+          ×
+        </button>
+      </header>
+
+      <div class="preview-image-area">
+        <img
+          *ngIf="selectedAdversary.imageUrl"
+          [src]="'http://localhost:5288' + selectedAdversary.imageUrl"
+          [alt]="'Powiększona karta: ' + selectedAdversary.name"
+          class="preview-image"
+        />
+
+        <div
+          *ngIf="!selectedAdversary.imageUrl"
+          class="adversary-placeholder"
+        >
+          Brak grafiki
+        </div>
+      </div>
+
+      <footer class="preview-footer">
+        <p>
+          Aby dokładniej przeczytać poziomy i zasady, możesz otworzyć grafikę
+          w osobnej karcie przeglądarki.
+        </p>
+
+        <a
+          *ngIf="selectedAdversary.imageUrl"
+          class="open-image-link"
+          [href]="'http://localhost:5288' + selectedAdversary.imageUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Otwórz samą grafikę ↗
+        </a>
+      </footer>
+    </section>
   </div>
 </div>

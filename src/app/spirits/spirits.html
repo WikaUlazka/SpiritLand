@@ -1,31 +1,126 @@
-<div class="spirits-container">
-  <h2 class="title">Duchy</h2>
 
-  <div class="search-wrapper">
-    <input
-      type="text"
-      class="search-input"
-      placeholder="Szukaj ducha..."
-      [(ngModel)]="searchTerm"
-      (input)="filterSpirits()"
-    />
+<div class="spirits-page">
+  <header class="spirits-header">
+    <div class="header-copy">
+      <span class="eyebrow">SPIRITLAND · BESTIARIUSZ WYSPY</span>
+      <h1>Duchy wyspy</h1>
+      <p>
+        Odkryj duchy natury, poznaj ich moce i wybierz swojego sprzymierzeńca.
+      </p>
+    </div>
+
+    <div class="spirits-counter">
+      <span class="counter-icon">✦</span>
+      <div>
+        <strong>{{ filteredSpirits.length }}</strong>
+        <span>{{ filteredSpirits.length === 1 ? 'duch' : 'duchów' }}</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="search-panel">
+    <div class="search-box">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <input
+        type="search"
+        class="search-input"
+        placeholder="Szukaj ducha po nazwie..."
+        aria-label="Szukaj ducha po nazwie"
+        [(ngModel)]="searchTerm"
+        (input)="filterSpirits()"
+      />
+
+      <button
+        *ngIf="searchTerm"
+        type="button"
+        class="clear-search"
+        aria-label="Wyczyść wyszukiwanie"
+        (click)="searchTerm = ''; filterSpirits()"
+      >
+        ×
+      </button>
+    </div>
+
+    <span class="search-hint">
+      {{ searchTerm ? 'Wyniki wyszukiwania' : 'Poznaj duchy Spirit Island' }}
+    </span>
+  </section>
+
+  <div *ngIf="loading" class="state-panel">
+    <span class="loader"></span>
+    <p>Przywoływanie duchów...</p>
   </div>
 
-  <div *ngIf="loading" class="info">Ładowanie...</div>
-  <div *ngIf="error" class="error">{{ error }}</div>
+  <div *ngIf="error && !loading" class="state-panel error-panel">
+    <span class="state-icon">!</span>
+    <h2>Nie udało się załadować duchów</h2>
+    <p>{{ error }}</p>
+  </div>
 
-  <div class="spirits-grid">
-    <a *ngFor="let s of filteredSpirits" class="spirit-card" [routerLink]="['/spirits', s.id]">
+  <section
+    class="spirits-grid"
+    *ngIf="!loading && !error && filteredSpirits.length > 0"
+  >
+    <a
+      *ngFor="let s of filteredSpirits"
+      class="spirit-card"
+      [routerLink]="['/spirits', s.id]"
+      [attr.aria-label]="'Zobacz szczegóły ducha: ' + s.name"
+    >
       <div class="spirit-image-wrapper">
         <img
           *ngIf="s.imageUrl"
           class="spirit-img"
           [src]="'http://localhost:5288' + s.imageUrl"
-          alt="{{ s.name }}"
+          [alt]="s.name"
+          loading="lazy"
         />
+
+        <div *ngIf="!s.imageUrl" class="image-placeholder">
+          <span>✦</span>
+          <small>Duch wyspy</small>
+        </div>
+
+        <div class="image-overlay">
+          <span class="discover-label">Odkryj ducha</span>
+        </div>
       </div>
 
-      <h3 class="spirit-name">{{ s.name }}</h3>
+      <div class="spirit-card-content">
+        <span class="spirit-category">DUCH NATURY</span>
+        <h2 class="spirit-name">{{ s.name }}</h2>
+
+        <div class="spirit-card-footer">
+          <span>Poznaj szczegóły</span>
+          <span class="arrow-icon" aria-hidden="true">↗</span>
+        </div>
+      </div>
     </a>
-  </div>
+  </section>
+
+  <section
+    *ngIf="!loading && !error && filteredSpirits.length === 0"
+    class="state-panel empty-panel"
+  >
+    <span class="state-icon">⌕</span>
+    <h2>Nie znaleziono ducha</h2>
+    <p>Spróbuj wpisać inną nazwę.</p>
+
+    <button
+      type="button"
+      class="reset-search-btn"
+      (click)="searchTerm = ''; filterSpirits()"
+    >
+      Pokaż wszystkie duchy
+    </button>
+  </section>
+
+  <footer
+    class="spirits-footer"
+    *ngIf="!loading && !error && spirits.length > 0"
+  >
+    <span class="footer-decoration">✦</span>
+    Duchy wyspy czekają na odkrycie
+    <span class="footer-decoration">✦</span>
+  </footer>
 </div>

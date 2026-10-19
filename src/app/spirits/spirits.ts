@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -14,30 +15,40 @@ import { SpiritsService, Spirit } from '../services/spirits.service';
 export class Spirits implements OnInit {
   spirits: Spirit[] = [];
   filteredSpirits: Spirit[] = [];
+
   loading = true;
   error = '';
-
   searchTerm = '';
 
   constructor(private spiritsService: SpiritsService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.loadSpirits();
+  }
+
+  loadSpirits(): void {
+    this.loading = true;
+    this.error = '';
+
     this.spiritsService.getSpirits().subscribe({
       next: (data) => {
-        this.spirits = data;
-        this.filteredSpirits = data;
+        this.spirits = Array.isArray(data) ? data : [];
+        this.filterSpirits();
         this.loading = false;
       },
-      error: () => {
-        this.error = 'Błąd ładowania duchów';
+      error: (err) => {
+        console.error('Błąd ładowania duchów:', err);
+        this.error = 'Nie udało się pobrać listy duchów. Spróbuj ponownie.';
         this.loading = false;
       },
     });
   }
 
-  filterSpirits() {
-    const term = this.searchTerm.toLowerCase();
+  filterSpirits(): void {
+    const term = this.searchTerm.trim().toLocaleLowerCase();
 
-    this.filteredSpirits = this.spirits.filter((s) => s.name.toLowerCase().includes(term));
+    this.filteredSpirits = this.spirits.filter((spirit) =>
+      (spirit.name ?? '').toLocaleLowerCase().includes(term)
+    );
   }
 }

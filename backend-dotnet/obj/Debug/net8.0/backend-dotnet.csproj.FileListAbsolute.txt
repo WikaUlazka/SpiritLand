@@ -59,3 +59,6 @@ C:\Users\ulazk\OneDrive\Pulpit\spiritland\backend-dotnet\obj\Debug\net8.0\rjsmcs
 C:\Users\ulazk\OneDrive\Pulpit\spiritland\backend-dotnet\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\ulazk\OneDrive\Pulpit\spiritland\backend-dotnet\obj\Debug\net8.0\staticwebassets.build.endpoints.json
 C:\Users\ulazk\OneDrive\Pulpit\spiritland\backend-dotnet\bin\Debug\net8.0\backend-dotnet.staticwebassets.runtime.json
+C:\Users\ulazk\OneDrive\Pulpit\spiritland\backend-dotnet\bin\Debug\net8.0\Microsoft.Bcl.Cryptography.dll
+C:\Users\ulazk\OneDrive\Pulpit\spiritland\backend-dotnet\bin\Debug\net8.0\System.Formats.Asn1.dll
+C:\Users\ulazk\OneDrive\Pulpit\spiritland\backend-dotnet\obj\Debug\net8.0\swae.build.ex.cache

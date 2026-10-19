@@ -61,6 +61,7 @@ export class UserEdit implements OnInit {
     this.updateAspects();
   }
 
+
   save() {
     const payload = {
       username: this.user.username,
@@ -72,4 +73,9 @@ export class UserEdit implements OnInit {
       this.router.navigate(['/users']);
     });
   }
+
+  cancel(): void {
+    this.router.navigate(['/users']);
+  }
 }
+
